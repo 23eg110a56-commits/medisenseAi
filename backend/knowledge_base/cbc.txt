@@ -1,0 +1,37 @@
+# Complete Blood Count (CBC) Reference Guide
+
+A Complete Blood Count (CBC) is a standard panel that evaluates the cells that circulate in blood. It is used to monitor general health and screen for a variety of disorders, including anemia, infection, and leukemia.
+
+## Hemoglobin (Hb)
+- **Standard Range (Male)**: 13.8 to 17.2 g/dL
+- **Standard Range (Female)**: 12.1 to 15.1 g/dL
+- **Low Hemoglobin (Anemia)**: Indicative of iron deficiency, vitamin B12/folate deficiency, chronic kidney disease, blood loss, or bone marrow failure. Symptoms include fatigue, weakness, pale skin, and shortness of breath.
+- **High Hemoglobin (Erythrocytosis)**: Associated with dehydration, smoking, chronic obstructive pulmonary disease (COPD), high altitude, or polycythemia vera.
+
+## Red Blood Cells (RBC) Count
+- **Standard Range (Male)**: 4.5 to 5.9 million cells/mcL
+- **Standard Range (Female)**: 4.1 to 5.1 million cells/mcL
+- **Low RBC**: Indicates anemia, bleeding, nutritional deficiencies, or overhydration.
+- **High RBC**: Caused by dehydration, low oxygen conditions, kidney diseases triggering high erythropoietin, or bone marrow disorders.
+
+## White Blood Cells (WBC) Count
+- **Standard Range**: 4,500 to 11,000 cells/mcL
+- **Low WBC (Leukopenia)**: Can be caused by viral infections, autoimmune conditions, bone marrow damage (toxins, cancer), or drugs like chemotherapy. Increases infection risk.
+- **High WBC (Leukocytosis)**: Typically indicates infection, inflammatory responses, stress, trauma, allergic reactions, or leukemia.
+
+## Platelets (PLT) Count
+- **Standard Range**: 150,000 to 450,000 platelets/mcL
+- **Low Platelets (Thrombocytopenia)**: Risk of easy bruising or bleeding. Caused by viral infections, immune thrombocytopenia, chemotherapy, heavy alcohol consumption, or liver disease.
+- **High Platelets (Thrombocytosis)**: Risk of blood clots. Can be reactive (from inflammation, infection, iron deficiency) or due to bone marrow disease.
+
+## Hematocrit (Hct)
+- **Standard Range (Male)**: 40.7% to 50.3%
+- **Standard Range (Female)**: 36.1% to 44.3%
+- **Low Hematocrit**: Correlates with anemia and blood loss.
+- **High Hematocrit**: Correlates with dehydration or polycythemia.
+
+## Red Cell Indices (MCV, MCH, MCHC, RDW)
+- **MCV (Mean Corpuscular Volume)**: 80 to 96 fL. Measures the size of red blood cells. Low MCV indicates microcytic anemia (often iron deficiency). High MCV indicates macrocytic anemia (often Vitamin B12 or Folate deficiency).
+- **MCH (Mean Corpuscular Hemoglobin)**: 27 to 33 pg. Amount of hemoglobin per red cell.
+- **MCHC (Mean Corpuscular Hemoglobin Concentration)**: 32 to 36 g/dL. Concentration of hemoglobin in red cells.
+- **RDW (Red Cell Distribution Width)**: 11.5% to 14.5%. Measures variation in red blood cell size. Elevated RDW indicates mixed anemias or nutritional deficiencies.

@@ -1,0 +1,24 @@
+# Blood Pressure & Body Mass Index (BMI) Reference Guide
+
+This guide details classification and clinical significance of blood pressure and Body Mass Index (BMI) for cardiac and metabolic health assessment.
+
+## Blood Pressure (BP)
+Blood pressure is measured in millimeters of mercury (mmHg) and is recorded as two numbers: Systolic (pressure when heart beats) over Diastolic (pressure when heart rests between beats).
+
+- **Normal**: Systolic < 120 mmHg AND Diastolic < 80 mmHg
+- **Elevated**: Systolic 120–129 mmHg AND Diastolic < 80 mmHg
+- **Hypertension Stage 1**: Systolic 130–139 mmHg OR Diastolic 80–89 mmHg
+- **Hypertension Stage 2**: Systolic 140 mmHg or higher OR Diastolic 90 mmHg or higher
+- **Hypertensive Crisis**: Systolic > 180 mmHg and/or Diastolic > 120 mmHg (Requires immediate emergency medical attention)
+- **Clinical Significance**: Chronic high blood pressure (hypertension) damages arteries, leading to atherosclerosis, heart attack, heart failure, stroke, and kidney failure. Lifestyle modifications include reducing sodium intake, regular cardio, weight loss, and limiting alcohol.
+
+## Body Mass Index (BMI)
+BMI is a screening tool that estimates body fat based on a person's weight and height. Formula: \(BMI = \text{weight (kg)} / \text{height (m)}^2\).
+
+- **Underweight**: Less than 18.5
+- **Normal Weight**: 18.5 to 24.9
+- **Overweight**: 25.0 to 29.9
+- **Obesity Class 1**: 30.0 to 34.9
+- **Obesity Class 2**: 35.0 to 39.9
+- **Obesity Class 3 (Severe/Morbid)**: 40.0 and above
+- **Clinical Significance**: High BMI (overweight/obese) is linked to a higher risk of Type 2 diabetes, high blood pressure, coronary artery disease, osteoarthritis, sleep apnea, and certain cancers. Low BMI (underweight) can indicate malnutrition, osteoporosis, anemia, or underlying endocrine disorders.

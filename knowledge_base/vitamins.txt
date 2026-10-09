@@ -1,0 +1,17 @@
+# Vitamin D and Vitamin B12 Reference Guide
+
+Vitamins are essential organic compounds needed in small quantities for metabolic function, bone health, nerve function, and red blood cell production.
+
+## Vitamin D (25-Hydroxyvitamin D)
+- **Deficiency**: Less than 20 ng/mL
+- **Insufficiency**: 20 to 29 ng/mL
+- **Sufficiency (Normal)**: 30 to 100 ng/mL
+- **Toxicity**: Greater than 100 ng/mL (can lead to hypercalcemia, kidney stones, and calcification of blood vessels)
+- **Clinical Significance**: Vitamin D is critical for calcium absorption and bone health, immune function, and reducing inflammation. Deficiency leads to rickets in children and osteomalacia/osteoporosis in adults. Symptoms include bone pain, muscle weakness, fatigue, and mood changes.
+
+## Vitamin B12 (Cobalamin)
+- **Deficiency**: Less than 200 pg/mL
+- **Borderline / Low Normal**: 200 to 300 pg/mL
+- **Normal Range**: 300 to 900 pg/mL
+- **Clinical Significance**: B12 is essential for red blood cell formation, neurological function, and DNA synthesis.
+- **B12 Deficiency**: Causes megaloblastic anemia (large, abnormal RBCs) and neurological issues (numbness, tingling in hands/feet, balance problems, memory loss, cognitive decline). Often seen in vegetarians/vegans, older adults, and individuals with malabsorption disorders (like Crohn's disease or pernicious anemia).

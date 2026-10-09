@@ -1,0 +1,847 @@
+{
+  "users": [
+    {
+      "_id": "6ac6871ef785870ef5ed1045",
+      "email": "user@medisense.ai",
+      "hashed_password": "$2b$12$wyH9Bhf98Aa2el5XWLqMvOkIlOR3F5GzpZdeuPf6ZR3cn2dLtaSv6",
+      "name": "Alex Johnson",
+      "role": "user",
+      "language": "en",
+      "created_at": "2026-04-10T17:53:34.707927+00:00",
+      "is_verified": true,
+      "age": 35,
+      "gender": "male",
+      "weight": 78.5,
+      "height": 1.78,
+      "systolic_bp": 125,
+      "diastolic_bp": 82,
+      "fasting_sugar": 105.0
+    },
+    {
+      "_id": "6ac6871ff785870ef5ed104b",
+      "email": "admin@medisense.ai",
+      "hashed_password": "$2b$12$1I25uNkvIk3KANmx0Z1kM.U86Ithki4.lA3bFJTQfQ9ry4A8du67O",
+      "name": "System Administrator",
+      "role": "admin",
+      "language": "en",
+      "created_at": "2026-10-07T17:53:35.505008+00:00",
+      "is_verified": true
+    },
+    {
+      "email": "alex@medisense.ai",
+      "hashed_password": "$2b$12$Fdkv/0Ce0DSFLoE77F9F5uX8NYAnMJ8g3u/M7mJA91w7PlqZtDYTC",
+      "name": "Alex Johnson",
+      "role": "user",
+      "language": "en",
+      "created_at": "2026-10-08 14:19:10.049807+00:00",
+      "is_verified": false,
+      "age": null,
+      "gender": null,
+      "weight": null,
+      "height": null,
+      "systolic_bp": null,
+      "diastolic_bp": null,
+      "fasting_sugar": null,
+      "_id": "6ac7a65e348058af97cfc2e6"
+    },
+    {
+      "email": "alex_test2@medisense.ai",
+      "hashed_password": "$2b$12$l0Fx.m5.1jR2fNfBZ.rUCeU6kj/tDbB1oHtdYPQL/EcHhmmLb0qOy",
+      "name": "Alex Johnson",
+      "role": "user",
+      "language": "en",
+      "created_at": "2026-10-08 14:19:57.256532+00:00",
+      "is_verified": false,
+      "age": null,
+      "gender": null,
+      "weight": null,
+      "height": null,
+      "systolic_bp": null,
+      "diastolic_bp": null,
+      "fasting_sugar": null,
+      "_id": "6ac7a68d348058af97cfc2e8"
+    },
+    {
+      "email": "alex_major@medisense.ai",
+      "hashed_password": "$2b$12$4mrfhbhVRDvWRVtlUSp3i.llZgB6QEjcxgruleKluffFwxZQSI3OC",
+      "name": "Alex Johnson",
+      "role": "user",
+      "language": "en",
+      "created_at": "2026-10-08 14:22:02.365120+00:00",
+      "is_verified": false,
+      "age": null,
+      "gender": null,
+      "weight": null,
+      "height": null,
+      "systolic_bp": null,
+      "diastolic_bp": null,
+      "fasting_sugar": null,
+      "_id": "6ac7a70adc25c66a2d9664f1"
+    },
+    {
+      "email": "nithinyadav349@gmail.com",
+      "hashed_password": "$2b$12$H3zs5gNlhMuIkNN2.RZ4nuxdhG3.Q8i4rwet/4KI9na6cAuhzsr0i",
+      "name": "nithin",
+      "role": "user",
+      "language": "en",
+      "created_at": "2026-10-08 14:27:51.408097+00:00",
+      "is_verified": false,
+      "age": null,
+      "gender": null,
+      "weight": null,
+      "height": null,
+      "systolic_bp": null,
+      "diastolic_bp": null,
+      "fasting_sugar": null,
+      "_id": "6ac7a867d2e84ca7303425c9"
+    }
+  ],
+  "reports": [
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "patient_name": "Alex Johnson",
+      "filename": "lipid_profile_january.pdf",
+      "gridfs_id": "mock_gridfs_1",
+      "extracted_text": "LIPID PROFILE TEST REPORT. Total Cholesterol: 250 mg/dL (High). LDL: 175 mg/dL. HDL: 32 mg/dL. Triglycerides: 210 mg/dL.",
+      "report_type": "Lipid Profile",
+      "summary": "Your lipid profile from 6 months ago showed elevated LDL and total cholesterol.",
+      "biomarkers": [
+        {
+          "name": "Total Cholesterol",
+          "value": "250",
+          "unit": "mg/dL",
+          "reference_range": "< 200",
+          "status": "High",
+          "explanation": "Total blood cholesterol."
+        },
+        {
+          "name": "LDL Cholesterol",
+          "value": "175",
+          "unit": "mg/dL",
+          "reference_range": "< 100",
+          "status": "High",
+          "explanation": "Bad cholesterol."
+        },
+        {
+          "name": "HDL Cholesterol",
+          "value": "32",
+          "unit": "mg/dL",
+          "reference_range": "> 40",
+          "status": "Low",
+          "explanation": "Good cholesterol."
+        },
+        {
+          "name": "Triglycerides",
+          "value": "210",
+          "unit": "mg/dL",
+          "reference_range": "< 150",
+          "status": "High",
+          "explanation": "Blood fats."
+        }
+      ],
+      "health_concerns": {
+        "summary": "Elevated cholesterol levels.",
+        "potential_risks": [
+          "Cardiovascular strain"
+        ]
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Daily aerobic exercise"
+        ],
+        "diet": [
+          "Reduce saturated fats"
+        ],
+        "specialists": [
+          "Cardiologist"
+        ]
+      },
+      "health_score": 58,
+      "language": "en",
+      "created_at": "2026-04-10T17:53:34.707927+00:00",
+      "_id": "6ac6871ff785870ef5ed1046"
+    },
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "patient_name": "Alex Johnson",
+      "filename": "lipid_profile_april.pdf",
+      "gridfs_id": "mock_gridfs_2",
+      "extracted_text": "LIPID PROFILE. Total Cholesterol: 220 mg/dL. LDL: 145 mg/dL. HDL: 38 mg/dL. Triglycerides: 175 mg/dL.",
+      "report_type": "Lipid Profile",
+      "summary": "Your lipid profile from 3 months ago showed positive improvement across all markers.",
+      "biomarkers": [
+        {
+          "name": "Total Cholesterol",
+          "value": "220",
+          "unit": "mg/dL",
+          "reference_range": "< 200",
+          "status": "High",
+          "explanation": "Total blood cholesterol."
+        },
+        {
+          "name": "LDL Cholesterol",
+          "value": "145",
+          "unit": "mg/dL",
+          "reference_range": "< 100",
+          "status": "High",
+          "explanation": "Bad cholesterol."
+        },
+        {
+          "name": "HDL Cholesterol",
+          "value": "38",
+          "unit": "mg/dL",
+          "reference_range": "> 40",
+          "status": "Low",
+          "explanation": "Good cholesterol."
+        },
+        {
+          "name": "Triglycerides",
+          "value": "175",
+          "unit": "mg/dL",
+          "reference_range": "< 150",
+          "status": "High",
+          "explanation": "Blood fats."
+        }
+      ],
+      "health_concerns": {
+        "summary": "Cholesterol levels improving.",
+        "potential_risks": []
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Continue daily exercise"
+        ],
+        "diet": [
+          "Omega-3 rich foods"
+        ],
+        "specialists": []
+      },
+      "health_score": 70,
+      "language": "en",
+      "created_at": "2026-07-09T17:53:34.707927+00:00",
+      "_id": "6ac6871ff785870ef5ed1047"
+    },
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "patient_name": "Alex Johnson",
+      "filename": "sugar_test_may.pdf",
+      "gridfs_id": "mock_gridfs_3",
+      "extracted_text": "DIABETES PANEL. Fasting Glucose: 110 mg/dL. HbA1c: 6.0 %. Hemoglobin: 14.5 g/dL.",
+      "report_type": "Diabetes Profile",
+      "summary": "Your glucose test indicates borderline fasting sugar and prediabetes.",
+      "biomarkers": [
+        {
+          "name": "Fasting Glucose",
+          "value": "110",
+          "unit": "mg/dL",
+          "reference_range": "70 - 99",
+          "status": "High",
+          "explanation": "Fasting blood sugar."
+        },
+        {
+          "name": "HbA1c",
+          "value": "6.0",
+          "unit": "%",
+          "reference_range": "< 5.7",
+          "status": "High",
+          "explanation": "3-month average glucose."
+        },
+        {
+          "name": "Hemoglobin",
+          "value": "14.5",
+          "unit": "g/dL",
+          "reference_range": "13.5 - 17.5",
+          "status": "Normal",
+          "explanation": "Oxygen carrying protein."
+        }
+      ],
+      "health_concerns": {
+        "summary": "Mild glucose elevation.",
+        "potential_risks": [
+          "Risk of Type 2 Diabetes"
+        ]
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Post-meal walks"
+        ],
+        "diet": [
+          "Low glycemic index foods"
+        ],
+        "specialists": [
+          "Endocrinologist"
+        ]
+      },
+      "health_score": 75,
+      "language": "en",
+      "created_at": "2026-09-07T17:53:34.707927+00:00",
+      "_id": "6ac6871ff785870ef5ed1048"
+    },
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "patient_name": "Alex Johnson",
+      "filename": "lipid_profile_june.pdf",
+      "gridfs_id": "mock_gridfs_4",
+      "extracted_text": "LIPID PROFILE TEST REPORT. Total Cholesterol: 198 mg/dL (Normal). LDL: 98 mg/dL. HDL: 42 mg/dL. Triglycerides: 140 mg/dL.",
+      "report_type": "Lipid Profile",
+      "summary": "Great news! Your latest lipid profile shows normal healthy ranges across all markers.",
+      "biomarkers": [
+        {
+          "name": "Total Cholesterol",
+          "value": "198",
+          "unit": "mg/dL",
+          "reference_range": "< 200",
+          "status": "Normal",
+          "explanation": "Total blood cholesterol."
+        },
+        {
+          "name": "LDL Cholesterol",
+          "value": "98",
+          "unit": "mg/dL",
+          "reference_range": "< 100",
+          "status": "Normal",
+          "explanation": "Bad cholesterol. Under 100 is optimal."
+        },
+        {
+          "name": "HDL Cholesterol",
+          "value": "42",
+          "unit": "mg/dL",
+          "reference_range": "> 40",
+          "status": "Normal",
+          "explanation": "Good cholesterol."
+        },
+        {
+          "name": "Triglycerides",
+          "value": "140",
+          "unit": "mg/dL",
+          "reference_range": "< 150",
+          "status": "Normal",
+          "explanation": "Blood fats."
+        }
+      ],
+      "health_concerns": {
+        "summary": "All lipid values within normal limits.",
+        "potential_risks": []
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Maintain routine"
+        ],
+        "diet": [
+          "Balanced whole foods"
+        ],
+        "specialists": []
+      },
+      "health_score": 92,
+      "language": "en",
+      "created_at": "2026-10-05T17:53:34.707927+00:00",
+      "_id": "6ac6871ff785870ef5ed1049"
+    },
+    {
+      "user_id": "6ac7a68d348058af97cfc2e8",
+      "patient_name": "Alex Johnson",
+      "filename": "sample_cbc_report.pdf",
+      "gridfs_id": "6ac7a68d348058af97cfc2ea",
+      "extracted_text": "APEX DIAGNOSTICS & RESEARCH CENTER\nPatient: Alex Johnson | Age: 35 / Male | Date: 2026-06-20 | Lab ID: APX-9941\nTest Name: Complete Blood Count (CBC) with Differential\nBiomarker / Test Name Observed Value Unit Biological Reference Interval Status Flag\nHemoglobin (Hb) 10.8 g/dL 13.5 - 17.5 Low\nTotal Leukocyte Count (WBC) 7200 cells/mcL 4500 - 11000 Normal\nRed Blood Cell (RBC) Count 3.65 mil/mcL 4.50 - 5.90 Low\nPacked Cell Volume (PCV) 33.2 % 40.0 - 50.0 Low\nMean Corpuscular Volume (MCV) 72.4 fL 80.0 - 96.0 Low\nMean Corpuscular Hb (MCH) 23.5 pg 27.0 - 33.0 Low\nMCHC 31.2 g/dL 32.0 - 36.0 Low\nPlatelet Count 240000 cells/mcL 150000 - 450000 Normal\nNeutrophils 64 % 40 - 70 Normal\nLymphocytes 28 % 20 - 40 Normal\nCLINICAL NOTES: Microcytic hypochromic indices suggestive of iron deficiency anemia.",
+      "report_type": "Complete Blood Count (CBC) with Differential",
+      "summary": "Your Complete Blood Count (CBC) with Differential reveals 6 parameter(s) outside standard biological reference ranges, notably: Hemoglobin (Hb) (10.8 g/dL, Low), Red Blood Cell (RBC) Count (3.65 mil/mcL, Low), Packed Cell Volume (PCV) (33.2 %, Low). These findings warrant review with your physician for tailored clinical guidance.",
+      "biomarkers": [
+        {
+          "name": "Hemoglobin (Hb)",
+          "value": "10.8",
+          "unit": "g/dL",
+          "reference_range": "13.5 - 17.5",
+          "status": "Low",
+          "explanation": "Iron-rich protein in red blood cells that transports oxygen from lungs to vital organs."
+        },
+        {
+          "name": "Total Leukocyte Count (WBC)",
+          "value": "7200",
+          "unit": "cells/mcL",
+          "reference_range": "4500 - 11000",
+          "status": "Normal",
+          "explanation": "Immune system defense cells that detect and combat bacterial, viral, and inflammatory conditions."
+        },
+        {
+          "name": "Red Blood Cell (RBC) Count",
+          "value": "3.65",
+          "unit": "mil/mcL",
+          "reference_range": "4.50 - 5.90",
+          "status": "Low",
+          "explanation": "Biconcave cellular corpuscles responsible for circulating oxygen and carbon dioxide."
+        },
+        {
+          "name": "Packed Cell Volume (PCV)",
+          "value": "33.2",
+          "unit": "%",
+          "reference_range": "40.0 - 50.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Packed Cell Volume (PCV)' evaluated at 33.2 %."
+        },
+        {
+          "name": "Mean Corpuscular Volume (MCV)",
+          "value": "72.4",
+          "unit": "fL",
+          "reference_range": "80.0 - 96.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Mean Corpuscular Volume (MCV)' evaluated at 72.4 fL."
+        },
+        {
+          "name": "Mean Corpuscular Hb (MCH)",
+          "value": "23.5",
+          "unit": "pg",
+          "reference_range": "27.0 - 33.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Mean Corpuscular Hb (MCH)' evaluated at 23.5 pg."
+        },
+        {
+          "name": "MCHC",
+          "value": "31.2",
+          "unit": "g/dL",
+          "reference_range": "32.0 - 36.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'MCHC' evaluated at 31.2 g/dL."
+        },
+        {
+          "name": "Platelet Count",
+          "value": "240000",
+          "unit": "cells/mcL",
+          "reference_range": "150000 - 450000",
+          "status": "Normal",
+          "explanation": "Cell fragments vital for blood clotting, hemostasis, and wound healing."
+        },
+        {
+          "name": "Neutrophils",
+          "value": "64",
+          "unit": "%",
+          "reference_range": "40 - 70",
+          "status": "Normal",
+          "explanation": "Laboratory marker 'Neutrophils' evaluated at 64 %."
+        },
+        {
+          "name": "Lymphocytes",
+          "value": "28",
+          "unit": "%",
+          "reference_range": "20 - 40",
+          "status": "Normal",
+          "explanation": "Laboratory marker 'Lymphocytes' evaluated at 28 %."
+        }
+      ],
+      "health_concerns": {
+        "summary": "6 parameter(s) require medical attention or monitoring.",
+        "potential_risks": [
+          "Low levels indicate anemia, causing reduced tissue oxygenation, fatigue, and weakness.",
+          "Low count indicates reduced oxygen-carrying capacity and potential nutritional deficiency."
+        ]
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Avoid strenuous exhaustion; ensure adequate restorative sleep.",
+          "Consistent light exercise and balanced hydration."
+        ],
+        "diet": [
+          "Consume iron-rich foods (spinach, beans, lentils, lean meats) paired with Vitamin C to boost absorption.",
+          "Folate and Vitamin B12 rich foods, fortified cereals, and leafy greens."
+        ],
+        "specialists": [
+          "Hematologist",
+          "Hematologist or General Physician"
+        ]
+      },
+      "health_score": 46,
+      "language": "en",
+      "created_at": "2026-10-08 14:19:57.336995+00:00",
+      "_id": "6ac7a68d348058af97cfc2eb"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "patient_name": "Alex Johnson",
+      "filename": "sample_cbc_report.pdf",
+      "gridfs_id": "6ac7a70adc25c66a2d9664f3",
+      "extracted_text": "APEX DIAGNOSTICS & RESEARCH CENTER\nPatient: Alex Johnson | Age: 35 / Male | Date: 2026-06-20 | Lab ID: APX-9941\nTest Name: Complete Blood Count (CBC) with Differential\nBiomarker / Test Name Observed Value Unit Biological Reference Interval Status Flag\nHemoglobin (Hb) 10.8 g/dL 13.5 - 17.5 Low\nTotal Leukocyte Count (WBC) 7200 cells/mcL 4500 - 11000 Normal\nRed Blood Cell (RBC) Count 3.65 mil/mcL 4.50 - 5.90 Low\nPacked Cell Volume (PCV) 33.2 % 40.0 - 50.0 Low\nMean Corpuscular Volume (MCV) 72.4 fL 80.0 - 96.0 Low\nMean Corpuscular Hb (MCH) 23.5 pg 27.0 - 33.0 Low\nMCHC 31.2 g/dL 32.0 - 36.0 Low\nPlatelet Count 240000 cells/mcL 150000 - 450000 Normal\nNeutrophils 64 % 40 - 70 Normal\nLymphocytes 28 % 20 - 40 Normal\nCLINICAL NOTES: Microcytic hypochromic indices suggestive of iron deficiency anemia.",
+      "report_type": "Complete Blood Count (CBC) with Differential",
+      "summary": "Your Complete Blood Count (CBC) with Differential reveals 6 parameter(s) outside standard biological reference ranges, notably: Hemoglobin (Hb) (10.8 g/dL, Low), Red Blood Cell (RBC) Count (3.65 mil/mcL, Low), Packed Cell Volume (PCV) (33.2 %, Low). These findings warrant review with your physician for tailored clinical guidance.",
+      "biomarkers": [
+        {
+          "name": "Hemoglobin (Hb)",
+          "value": "10.8",
+          "unit": "g/dL",
+          "reference_range": "13.5 - 17.5",
+          "status": "Low",
+          "explanation": "Iron-rich protein in red blood cells that transports oxygen from lungs to vital organs."
+        },
+        {
+          "name": "Total Leukocyte Count (WBC)",
+          "value": "7200",
+          "unit": "cells/mcL",
+          "reference_range": "4500 - 11000",
+          "status": "Normal",
+          "explanation": "Immune system defense cells that detect and combat bacterial, viral, and inflammatory conditions."
+        },
+        {
+          "name": "Red Blood Cell (RBC) Count",
+          "value": "3.65",
+          "unit": "mil/mcL",
+          "reference_range": "4.50 - 5.90",
+          "status": "Low",
+          "explanation": "Biconcave cellular corpuscles responsible for circulating oxygen and carbon dioxide."
+        },
+        {
+          "name": "Packed Cell Volume (PCV)",
+          "value": "33.2",
+          "unit": "%",
+          "reference_range": "40.0 - 50.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Packed Cell Volume (PCV)' evaluated at 33.2 %."
+        },
+        {
+          "name": "Mean Corpuscular Volume (MCV)",
+          "value": "72.4",
+          "unit": "fL",
+          "reference_range": "80.0 - 96.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Mean Corpuscular Volume (MCV)' evaluated at 72.4 fL."
+        },
+        {
+          "name": "Mean Corpuscular Hb (MCH)",
+          "value": "23.5",
+          "unit": "pg",
+          "reference_range": "27.0 - 33.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'Mean Corpuscular Hb (MCH)' evaluated at 23.5 pg."
+        },
+        {
+          "name": "MCHC",
+          "value": "31.2",
+          "unit": "g/dL",
+          "reference_range": "32.0 - 36.0",
+          "status": "Low",
+          "explanation": "Laboratory marker 'MCHC' evaluated at 31.2 g/dL."
+        },
+        {
+          "name": "Platelet Count",
+          "value": "240000",
+          "unit": "cells/mcL",
+          "reference_range": "150000 - 450000",
+          "status": "Normal",
+          "explanation": "Cell fragments vital for blood clotting, hemostasis, and wound healing."
+        },
+        {
+          "name": "Neutrophils",
+          "value": "64",
+          "unit": "%",
+          "reference_range": "40 - 70",
+          "status": "Normal",
+          "explanation": "Laboratory marker 'Neutrophils' evaluated at 64 %."
+        },
+        {
+          "name": "Lymphocytes",
+          "value": "28",
+          "unit": "%",
+          "reference_range": "20 - 40",
+          "status": "Normal",
+          "explanation": "Laboratory marker 'Lymphocytes' evaluated at 28 %."
+        }
+      ],
+      "health_concerns": {
+        "summary": "6 parameter(s) require medical attention or monitoring.",
+        "potential_risks": [
+          "Low levels indicate anemia, causing reduced tissue oxygenation, fatigue, and weakness.",
+          "Low count indicates reduced oxygen-carrying capacity and potential nutritional deficiency."
+        ]
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Avoid strenuous exhaustion; ensure adequate restorative sleep.",
+          "Consistent light exercise and balanced hydration."
+        ],
+        "diet": [
+          "Consume iron-rich foods (spinach, beans, lentils, lean meats) paired with Vitamin C to boost absorption.",
+          "Folate and Vitamin B12 rich foods, fortified cereals, and leafy greens."
+        ],
+        "specialists": [
+          "Hematologist or General Physician",
+          "Hematologist"
+        ]
+      },
+      "health_score": 46,
+      "language": "en",
+      "created_at": "2026-10-08 14:22:02.434099+00:00",
+      "_id": "6ac7a70adc25c66a2d9664f4"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "patient_name": "Alex Johnson",
+      "filename": "sample_lipid_report.pdf",
+      "gridfs_id": "6ac7a70adc25c66a2d9664f6",
+      "extracted_text": "METROPOLIS CLINICAL LABORATORIES\nPatient: Alex Johnson | Age: 35 / Male | Date: 2026-06-15 | ID: MET-89231\nRef By: Dr. R. Sharma, MD | Test Category: Comprehensive Lipid Profile Panel\nBiomarker / Test Name Observed Value Unit Biological Reference Interval Status Flag\nTotal Cholesterol 248.0 mg/dL < 200.0 (Desirable) High\nHDL Cholesterol (Good) 34.5 mg/dL > 40.0 (Optimal) Low\nLDL Cholesterol (Bad) 168.2 mg/dL < 100.0 (Optimal) High\nTriglycerides 215.0 mg/dL < 150.0 (Normal) High\nVLDL Cholesterol 43.0 mg/dL 5.0 - 30.0 High\nTotal / HDL Ratio 7.18 Ratio 3.3 - 4.4 High\nCLINICAL NOTES: Serum reveals dyslipidemia with elevated LDL-C and hypertriglyceridemia. Consult cardiologist.",
+      "report_type": "Comprehensive Lipid Profile Panel",
+      "summary": "Your Comprehensive Lipid Profile Panel reveals 6 parameter(s) outside standard biological reference ranges, notably: Total Cholesterol (248.0 mg/dL, High), HDL Cholesterol (Good) (34.5 mg/dL, Low), LDL Cholesterol (Bad) (168.2 mg/dL, High). These findings warrant review with your physician for tailored clinical guidance.",
+      "biomarkers": [
+        {
+          "name": "Total Cholesterol",
+          "value": "248.0",
+          "unit": "mg/dL",
+          "reference_range": "< 200.0 (Desirable",
+          "status": "High",
+          "explanation": "Total amount of cholesterol in the bloodstream. Elevated levels correlate with cardiovascular risk."
+        },
+        {
+          "name": "HDL Cholesterol (Good)",
+          "value": "34.5",
+          "unit": "mg/dL",
+          "reference_range": "> 40.0 (Optimal",
+          "status": "Low",
+          "explanation": "High-Density Lipoprotein ('good' cholesterol) scavenges excess arterial cholesterol."
+        },
+        {
+          "name": "LDL Cholesterol (Bad)",
+          "value": "168.2",
+          "unit": "mg/dL",
+          "reference_range": "< 100.0 (Optimal",
+          "status": "High",
+          "explanation": "Low-Density Lipoprotein ('bad' cholesterol) transports fat molecules into artery walls."
+        },
+        {
+          "name": "Triglycerides",
+          "value": "215.0",
+          "unit": "mg/dL",
+          "reference_range": "< 150.0 (Normal",
+          "status": "High",
+          "explanation": "Type of fat stored in adipocytes used for cellular energy."
+        },
+        {
+          "name": "VLDL Cholesterol",
+          "value": "43.0",
+          "unit": "mg/dL",
+          "reference_range": "5.0 - 30.0",
+          "status": "High",
+          "explanation": "Low-Density Lipoprotein ('bad' cholesterol) transports fat molecules into artery walls."
+        },
+        {
+          "name": "Total / HDL Ratio",
+          "value": "7.18",
+          "unit": "Ratio",
+          "reference_range": "3.3 - 4.4",
+          "status": "High",
+          "explanation": "High-Density Lipoprotein ('good' cholesterol) scavenges excess arterial cholesterol."
+        }
+      ],
+      "health_concerns": {
+        "summary": "6 parameter(s) require medical attention or monitoring.",
+        "potential_risks": [
+          "Atherosclerotic plaque accumulation and increased cardiovascular strain.",
+          "Low HDL reduces the body's natural defense against arterial plaque formation.",
+          "Elevated risk of arterial plaque narrowing and coronary artery disease.",
+          "Elevated triglycerides indicate metabolic syndrome and cardiovascular strain."
+        ]
+      },
+      "recommendations": {
+        "lifestyle": [
+          "Engage in at least 30 minutes of moderate aerobic cardiovascular exercise 5 days a week.",
+          "Quit smoking if applicable, perform aerobic interval training.",
+          "Regular cardiovascular conditioning and weight management.",
+          "Aerobic workouts and caloric control to reduce visceral fat."
+        ],
+        "diet": [
+          "Reduce saturated and trans fats; increase soluble fiber from oats, flaxseeds, and legumes.",
+          "Consume healthy omega-3 fatty acids (salmon, walnuts, chia seeds).",
+          "Eliminate trans fats, incorporate olive oil, avocados, and plant sterols.",
+          "Severely restrict refined sugars, simple carbs, alcohol, and sweetened beverages."
+        ],
+        "specialists": [
+          "Cardiologist",
+          "Cardiologist or General Physician",
+          "Cardiologist or Endocrinologist"
+        ]
+      },
+      "health_score": 46,
+      "language": "en",
+      "created_at": "2026-10-08 14:22:02.487101+00:00",
+      "_id": "6ac7a70adc25c66a2d9664f7"
+    }
+  ],
+  "chats": [
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "report_id": "6ac6871ff785870ef5ed1049",
+      "created_at": "2026-10-07 18:02:49.039659+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "hiii broo",
+          "created_at": "2026-10-07 18:02:49.039659+00:00"
+        },
+        {
+          "role": "assistant",
+          "content": "This is a mock response because the Gemini API Key is not set. Please set the key in the .env file.",
+          "created_at": "2026-10-07 18:02:49.039659+00:00"
+        }
+      ],
+      "_id": "6ac68949f785870ef5ed104c"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "report_id": "6ac7a70adc25c66a2d9664f4",
+      "created_at": "2026-10-08 14:22:02.703226+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What does my hemoglobin level mean and what should I eat?",
+          "created_at": "2026-10-08 14:22:02.703226+00:00"
+        },
+        {
+          "role": "assistant",
+          "content": "### Hemoglobin (Hb)\n\n**What it is:** Iron-rich protein in red blood cells that transports oxygen from lungs to vital organs.\n\n**Standard Reference Range:** 13.5 - 17.5 g/dL\n\n**Clinical Implication:** Low levels indicate anemia, causing reduced tissue oxygenation, fatigue, and weakness.\n\n**Dietary Recommendation:** Consume iron-rich foods (spinach, beans, lentils, lean meats) paired with Vitamin C to boost absorption.\n\n**Lifestyle Advice:** Avoid strenuous exhaustion; ensure adequate restorative sleep.\n\n**Specialist to Consult:** Hematologist or General Physician\n\n\n> **Clinical Reference Context (NIH/WHO Guidelines):**\n> [Source: cbc.txt]\n## Hemoglobin (Hb)\n- **Standard Range (Male)**: 13.8 to 17.2 g/dL\n- **Standard Range (Female)**: 12.1 to 15.1 g/dL\n- **Low Hemoglobin (Anemia)**: Indicative of iron deficiency, vitamin B12/folate deficiency, chronic kidney disease, blood loss, or bone marrow failure. Symptoms include fatigue, weakness, pale skin, and shortness of breath.\n- **High Hemoglobin (Erythrocytosis)**: As...\n\n---\n*Note: This information is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Please consult a qualified healthcare provider for personal medical concerns.*",
+          "created_at": "2026-10-08 14:22:02.703226+00:00"
+        }
+      ],
+      "_id": "6ac7a70adc25c66a2d9664f9"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "report_id": "6ac7a70adc25c66a2d9664f7",
+      "created_at": "2026-10-08 14:25:18.068401+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What does my hemoglobin level mean and what should I eat?",
+          "created_at": "2026-10-08 14:25:18.068401+00:00"
+        },
+        {
+          "role": "assistant",
+          "content": "### Hemoglobin (Hb)\n\n**What it is:** Iron-rich protein in red blood cells that transports oxygen from lungs to vital organs.\n\n**Standard Reference Range:** 13.5 - 17.5 g/dL\n\n**Clinical Implication:** Low levels indicate anemia, causing reduced tissue oxygenation, fatigue, and weakness.\n\n**Dietary Recommendation:** Consume iron-rich foods (spinach, beans, lentils, lean meats) paired with Vitamin C to boost absorption.\n\n**Lifestyle Advice:** Avoid strenuous exhaustion; ensure adequate restorative sleep.\n\n**Specialist to Consult:** Hematologist or General Physician\n\n\n> **Clinical Reference Context (NIH/WHO Guidelines):**\n> [Source: cbc.txt]\n## Hemoglobin (Hb)\n- **Standard Range (Male)**: 13.8 to 17.2 g/dL\n- **Standard Range (Female)**: 12.1 to 15.1 g/dL\n- **Low Hemoglobin (Anemia)**: Indicative of iron deficiency, vitamin B12/folate deficiency, chronic kidney disease, blood loss, or bone marrow failure. Symptoms include fatigue, weakness, pale skin, and shortness of breath.\n- **High Hemoglobin (Erythrocytosis)**: As...\n\n---\n*Note: This information is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Please consult a qualified healthcare provider for personal medical concerns.*",
+          "created_at": "2026-10-08 14:25:18.068401+00:00"
+        }
+      ],
+      "_id": "6ac7a7ced2e84ca7303425c7"
+    },
+    {
+      "user_id": "6ac7a867d2e84ca7303425c9",
+      "report_id": "6ac7a8a4d2e84ca7303425cc",
+      "created_at": "2026-10-08 14:31:48.073137+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "hii",
+          "created_at": "2026-10-08 14:31:48.073137+00:00"
+        },
+        {
+          "role": "assistant",
+          "content": "### Summary of Your Medical Report & Retrieved Guidelines\n\nBased on the data extracted from your medical report and official medical reference guidelines:\n\n- Your test values have been compared against biological reference intervals from established clinical authorities (WHO, NIH, CDC).\n\n- Any biomarkers flagged as 'High' or 'Low' reflect values outside normal ranges and should be evaluated in context with your clinical history.\n\n- Maintaining a balanced diet, consistent daily exercise, and scheduled follow-ups provides the best foundation for long-term health.\n\n\n> **Clinical Reference Context (NIH/WHO Guidelines):**\n> [Source: kft.txt]\n## Blood Urea Nitrogen (BUN)\n- **Standard Range**: 7 to 20 mg/dL\n- **Clinical Significance**: Urea nitrogen is a protein breakdown product. High BUN suggests kidney dysfunction, high protein diet, dehydration, gastrointestinal bleeding, or heart failure. Low BUN is associated with low protein diets, liver failure, or overhydration. [Source: who_nih_ranges.txt]\n# WHO and NIH Gene...\n\n---\n*Note: This information is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Please consult a qualified healthcare provider for personal medical concerns.*",
+          "created_at": "2026-10-08 14:31:48.073137+00:00"
+        }
+      ],
+      "_id": "6ac7a954d2e84ca7303425ce"
+    },
+    {
+      "user_id": "6ac7a867d2e84ca7303425c9",
+      "report_id": "6ac7ac0dd2e84ca7303425d0",
+      "created_at": "2026-10-08 14:45:10.518150+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what diet should i follow",
+          "created_at": "2026-10-08 14:45:10.518150+00:00"
+        },
+        {
+          "role": "assistant",
+          "content": "### Dietary Guidance Based on Clinical References\n\n- **Cardiovascular & Lipid Health:** Reduce saturated fats, eliminate trans fats, and consume soluble fiber (oats, legumes, flaxseeds). Incorporate heart-healthy fats such as extra virgin olive oil and nuts.\n\n- **Blood Sugar & Metabolic Health:** Emphasize low-glycemic foods, whole grains, and lean proteins while avoiding sweetened drinks and refined sugars.\n\n- **Iron & Blood Cell Support:** If hemoglobin is low, consume iron-rich foods (spinach, lentils, lean meats) alongside Vitamin C-rich foods to enhance iron absorption.\n\n\n> **Clinical Reference Context (NIH/WHO Guidelines):**\n> [Source: lipid_profile.txt]\n## Low-Density Lipoprotein (LDL) - \"Bad\" Cholesterol\n- **Optimal**: Less than 100 mg/dL\n- **Near/Above Optimal**: 100 to 129 mg/dL\n- **Borderline High**: 130 to 159 mg/dL\n- **High**: 160 to 189 mg/dL\n- **Very High**: 190 mg/dL and above\n- **Clinical Significance**: LDL carries cholesterol to tissues and arteries. Excess LDL accumulates in artery walls (plaque), leading ...\n\n---\n*Note: This information is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Please consult a qualified healthcare provider for personal medical concerns.*",
+          "created_at": "2026-10-08 14:45:10.518150+00:00"
+        }
+      ],
+      "_id": "6ac7ac76d2e84ca7303425d2"
+    }
+  ],
+  "notifications": [
+    {
+      "user_id": "6ac6871ef785870ef5ed1045",
+      "title": "Welcome to MediSense AI!",
+      "message": "We loaded your sample medical records so you can immediately see your health trends.",
+      "type": "info",
+      "read": false,
+      "created_at": "2026-10-07T17:53:34.707927+00:00",
+      "_id": "6ac6871ff785870ef5ed104a"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "title": "Report Analyzed Successfully",
+      "message": "Your report 'sample_cbc_report.pdf' has been processed. Health Score: 46/100.",
+      "type": "success",
+      "read": false,
+      "created_at": "2026-10-08 14:22:02.437319+00:00",
+      "_id": "6ac7a70adc25c66a2d9664f5"
+    },
+    {
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "title": "Report Analyzed Successfully",
+      "message": "Your report 'sample_lipid_report.pdf' has been processed. Health Score: 46/100.",
+      "type": "success",
+      "read": false,
+      "created_at": "2026-10-08 14:22:02.490308+00:00",
+      "_id": "6ac7a70adc25c66a2d9664f8"
+    },
+    {
+      "user_id": "6ac7a867d2e84ca7303425c9",
+      "title": "Report Analyzed Successfully",
+      "message": "Your report 'Mr K SREENU.pdf' has been processed. Health Score: 55/100.",
+      "type": "success",
+      "read": false,
+      "created_at": "2026-10-08 14:28:52.933132+00:00",
+      "_id": "6ac7a8a4d2e84ca7303425cd"
+    },
+    {
+      "user_id": "6ac7a867d2e84ca7303425c9",
+      "title": "Report Analyzed Successfully",
+      "message": "Your report 'medical report.pdf' has been processed. Health Score: 96/100.",
+      "type": "success",
+      "read": false,
+      "created_at": "2026-10-08 14:43:25.560602+00:00",
+      "_id": "6ac7ac0dd2e84ca7303425d1"
+    }
+  ],
+  "otps": [
+    {
+      "email": "alex@medisense.ai",
+      "otp": "127492",
+      "created_at": "2026-10-08 14:19:10.053810+00:00",
+      "_id": "6ac7a65e348058af97cfc2e7"
+    },
+    {
+      "email": "alex_test2@medisense.ai",
+      "otp": "826632",
+      "created_at": "2026-10-08 14:19:57.261532+00:00",
+      "_id": "6ac7a68d348058af97cfc2e9"
+    },
+    {
+      "email": "alex_major@medisense.ai",
+      "otp": "430666",
+      "created_at": "2026-10-08 14:22:02.367122+00:00",
+      "_id": "6ac7a70adc25c66a2d9664f2"
+    },
+    {
+      "email": "nithinyadav349@gmail.com",
+      "otp": "630726",
+      "created_at": "2026-10-08 14:27:51.411118+00:00",
+      "_id": "6ac7a867d2e84ca7303425ca"
+    }
+  ],
+  "shared_links": [
+    {
+      "token": "044b4790-067f-44d2-86ae-276738c1235a",
+      "report_id": "6ac7a70adc25c66a2d9664f4",
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "created_at": "2026-10-08 14:22:02.844770+00:00",
+      "expires_in_hours": 24,
+      "_id": "6ac7a70adc25c66a2d9664fa"
+    },
+    {
+      "token": "de325fed-9aaf-4c03-9239-aa57197b0e6d",
+      "report_id": "6ac7a70adc25c66a2d9664f7",
+      "user_id": "6ac7a70adc25c66a2d9664f1",
+      "created_at": "2026-10-08 14:25:18.246697+00:00",
+      "expires_in_hours": 24,
+      "_id": "6ac7a7ced2e84ca7303425c8"
+    }
+  ]
+}

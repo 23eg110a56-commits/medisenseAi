@@ -1,0 +1,34 @@
+# Kidney Function Test (KFT) Reference Guide
+
+Kidney Function Tests (also known as Renal Function Tests) evaluate how well the kidneys filter wastes, control fluid balance, and regulate critical electrolytes.
+
+## Serum Creatinine
+- **Standard Range (Male)**: 0.7 to 1.3 mg/dL
+- **Standard Range (Female)**: 0.6 to 1.1 mg/dL
+- **Clinical Significance**: Creatinine is a muscle waste product. High creatinine indicates reduced kidney function, dehydration, muscle injury (rhabdomyolysis), or urinary tract obstruction. Low creatinine can be caused by muscle wasting or malnutrition.
+
+## Blood Urea Nitrogen (BUN)
+- **Standard Range**: 7 to 20 mg/dL
+- **Clinical Significance**: Urea nitrogen is a protein breakdown product. High BUN suggests kidney dysfunction, high protein diet, dehydration, gastrointestinal bleeding, or heart failure. Low BUN is associated with low protein diets, liver failure, or overhydration.
+
+## BUN/Creatinine Ratio
+- **Standard Range**: 10:1 to 20:1
+- **Clinical Significance**: Helps identify the cause of kidney dysfunction. A high ratio (above 20:1) suggests dehydration or pre-renal causes. A normal to low ratio suggests intrinsic kidney damage.
+
+## Estimated Glomerular Filtration Rate (eGFR)
+- **Normal**: 90 mL/min/1.73m² or above
+- **Mildly Decreased (Stage 2 CKD)**: 60 to 89 mL/min/1.73m²
+- **Moderately Decreased (Stage 3 CKD)**: 30 to 59 mL/min/1.73m²
+- **Severely Decreased (Stage 4 CKD)**: 15 to 29 mL/min/1.73m²
+- **Kidney Failure (Stage 5 CKD)**: Less than 15 mL/min/1.73m²
+- **Clinical Significance**: The gold standard for assessing kidney filtration function and staging Chronic Kidney Disease (CKD).
+
+## Uric Acid
+- **Standard Range (Male)**: 3.5 to 7.2 mg/dL
+- **Standard Range (Female)**: 2.6 to 6.0 mg/dL
+- **Clinical Significance**: Uric acid is formed by purine breakdown. High uric acid (hyperuricemia) can lead to gout (painful joint inflammation) or kidney stones. Low uric acid is less common and usually benign.
+
+## Electrolytes (Sodium, Potassium, Chloride)
+- **Sodium (Na+)**: 135 to 145 mEq/L. High sodium (hypernatremia) indicates dehydration or excess salt intake. Low sodium (hyponatremia) is caused by water retention, kidney disease, heart failure, or diuretics.
+- **Potassium (K+)**: 3.5 to 5.0 mEq/L. High potassium (hyperkalemia) or low potassium (hypokalemia) are life-threatening as they affect heart rhythm. Requires immediate medical attention.
+- **Chloride (Cl-)**: 96 to 106 mEq/L. Helps maintain proper blood volume and pressure.

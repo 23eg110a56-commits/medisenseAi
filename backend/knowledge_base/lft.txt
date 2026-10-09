@@ -1,0 +1,39 @@
+# Liver Function Test (LFT) Reference Guide
+
+Liver Function Tests (LFT) evaluate the health of your liver by measuring levels of proteins, liver enzymes, and bilirubin in your blood.
+
+## Alanine Transaminase (ALT) or SGPT
+- **Standard Range**: 7 to 56 U/L
+- **Clinical Significance**: ALT is an enzyme found mostly in the liver. High levels indicate liver injury or inflammation, commonly caused by viral hepatitis, fatty liver disease, alcohol consumption, or liver-toxic medications.
+
+## Aspartate Transaminase (AST) or SGOT
+- **Standard Range**: 8 to 48 U/L
+- **Clinical Significance**: AST is found in the liver, heart, and skeletal muscles. Elevated levels suggest liver damage or muscle injury. A high AST/ALT ratio can be associated with alcoholic liver disease.
+
+## Alkaline Phosphatase (ALP)
+- **Standard Range**: 44 to 147 U/L
+- **Clinical Significance**: ALP is an enzyme related to the bile ducts and bones. High levels indicate bile duct blockage, gallstones, liver diseases (cholestasis), or bone disorders (like Paget's disease or rapid bone growth/healing).
+
+## Total Bilirubin
+- **Standard Range**: 0.1 to 1.2 mg/dL
+- **Clinical Significance**: Bilirubin is a byproduct of red blood cell breakdown. High levels cause jaundice (yellowing of skin/eyes). It suggests liver diseases (hepatitis, cirrhosis), bile duct obstruction, or hemolysis (increased RBC breakdown).
+
+## Direct (Conjugated) Bilirubin
+- **Standard Range**: 0.0 to 0.3 mg/dL
+- **Clinical Significance**: Direct bilirubin is processed by the liver. High direct bilirubin suggests liver dysfunction or bile duct blockage.
+
+## Albumin
+- **Standard Range**: 3.5 to 5.0 g/dL
+- **Clinical Significance**: Albumin is the primary protein produced by the liver. Low albumin indicates chronic liver disease (cirrhosis), kidney disease (nephrotic syndrome), malnutrition, or inflammation. High albumin is usually due to dehydration.
+
+## Total Protein
+- **Standard Range**: 6.0 to 8.3 g/dL
+- **Clinical Significance**: Measures albumin and globulin. Low levels suggest liver or kidney disease. High levels can indicate chronic infection, inflammation, or bone marrow disorders like multiple myeloma.
+
+## Globulin
+- **Standard Range**: 2.0 to 3.5 g/dL
+- **Clinical Significance**: Part of the immune system. Low levels suggest malnutrition or liver/kidney disorders. High levels suggest chronic infection or autoimmune disorders.
+
+## Albumin/Globulin (A/G) Ratio
+- **Standard Range**: 1.1 to 2.5
+- **Clinical Significance**: A low ratio suggests liver disease, kidney disease, or overproduction of globulin.

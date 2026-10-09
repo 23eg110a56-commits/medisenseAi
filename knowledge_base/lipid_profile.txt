@@ -1,0 +1,40 @@
+# Lipid Profile Reference Guide
+
+A lipid profile measures the level of specific lipids (fats) in your blood. It is a critical indicator of cardiovascular health, atherosclerosis risk, and metabolic function.
+
+## Total Cholesterol
+- **Desirable**: Less than 200 mg/dL
+- **Borderline High**: 200 to 239 mg/dL
+- **High**: 240 mg/dL and above
+- **Clinical Significance**: High total cholesterol is a risk factor for coronary heart disease, peripheral artery disease, and stroke.
+
+## Low-Density Lipoprotein (LDL) - "Bad" Cholesterol
+- **Optimal**: Less than 100 mg/dL
+- **Near/Above Optimal**: 100 to 129 mg/dL
+- **Borderline High**: 130 to 159 mg/dL
+- **High**: 160 to 189 mg/dL
+- **Very High**: 190 mg/dL and above
+- **Clinical Significance**: LDL carries cholesterol to tissues and arteries. Excess LDL accumulates in artery walls (plaque), leading to atherosclerosis. Treatment includes diet changes, statins, and exercise.
+
+## High-Density Lipoprotein (HDL) - "Good" Cholesterol
+- **Optimal / Low Risk**: 60 mg/dL and above
+- **Acceptable (Male)**: 40 to 59 mg/dL
+- **Acceptable (Female)**: 50 to 59 mg/dL
+- **Low (High Risk, Male)**: Less than 40 mg/dL
+- **Low (High Risk, Female)**: Less than 50 mg/dL
+- **Clinical Significance**: HDL transports cholesterol back to the liver for disposal. High HDL protects against heart disease, while low HDL increases risk.
+
+## Triglycerides
+- **Normal**: Less than 150 mg/dL
+- **Borderline High**: 150 to 199 mg/dL
+- **High**: 200 to 499 mg/dL
+- **Very High**: 500 mg/dL and above
+- **Clinical Significance**: Triglycerides are a type of fat used for energy storage. High levels can indicate metabolic syndrome, prediabetes, hypothyroidism, or kidney disease, and very high levels can cause acute pancreatitis.
+
+## Very Low-Density Lipoprotein (VLDL)
+- **Normal Range**: 5 to 30 mg/dL
+- **Clinical Significance**: VLDL carries triglycerides. Elevated levels contribute to plaque buildup.
+
+## Total Cholesterol / HDL Ratio
+- **Optimal**: Under 5.0 (Lower is better; 3.5 or below is ideal)
+- **Clinical Significance**: Helps evaluate the balance of good vs. bad cholesterol.

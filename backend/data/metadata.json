@@ -1,0 +1,222 @@
+[
+  {
+    "source": "bp_bmi.txt",
+    "content": "# Blood Pressure & Body Mass Index (BMI) Reference Guide\n\nThis guide details classification and clinical significance of blood pressure and Body Mass Index (BMI) for cardiac and metabolic health assessment."
+  },
+  {
+    "source": "bp_bmi.txt",
+    "content": "## Blood Pressure (BP)\nBlood pressure is measured in millimeters of mercury (mmHg) and is recorded as two numbers: Systolic (pressure when heart beats) over Diastolic (pressure when heart rests between beats)."
+  },
+  {
+    "source": "bp_bmi.txt",
+    "content": "- **Normal**: Systolic < 120 mmHg AND Diastolic < 80 mmHg\n- **Elevated**: Systolic 120–129 mmHg AND Diastolic < 80 mmHg\n- **Hypertension Stage 1**: Systolic 130–139 mmHg OR Diastolic 80–89 mmHg\n- **Hypertension Stage 2**: Systolic 140 mmHg or higher OR Diastolic 90 mmHg or higher\n- **Hypertensive Crisis**: Systolic > 180 mmHg and/or Diastolic > 120 mmHg (Requires immediate emergency medical attention)\n- **Clinical Significance**: Chronic high blood pressure (hypertension) damages arteries, leading to atherosclerosis, heart attack, heart failure, stroke, and kidney failure. Lifestyle modifications include reducing sodium intake, regular cardio, weight loss, and limiting alcohol."
+  },
+  {
+    "source": "bp_bmi.txt",
+    "content": "## Body Mass Index (BMI)\nBMI is a screening tool that estimates body fat based on a person's weight and height. Formula: \\(BMI = \\text{weight (kg)} / \\text{height (m)}^2\\)."
+  },
+  {
+    "source": "bp_bmi.txt",
+    "content": "- **Underweight**: Less than 18.5\n- **Normal Weight**: 18.5 to 24.9\n- **Overweight**: 25.0 to 29.9\n- **Obesity Class 1**: 30.0 to 34.9\n- **Obesity Class 2**: 35.0 to 39.9\n- **Obesity Class 3 (Severe/Morbid)**: 40.0 and above\n- **Clinical Significance**: High BMI (overweight/obese) is linked to a higher risk of Type 2 diabetes, high blood pressure, coronary artery disease, osteoarthritis, sleep apnea, and certain cancers. Low BMI (underweight) can indicate malnutrition, osteoporosis, anemia, or underlying endocrine disorders."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "# Complete Blood Count (CBC) Reference Guide\n\nA Complete Blood Count (CBC) is a standard panel that evaluates the cells that circulate in blood. It is used to monitor general health and screen for a variety of disorders, including anemia, infection, and leukemia."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## Hemoglobin (Hb)\n- **Standard Range (Male)**: 13.8 to 17.2 g/dL\n- **Standard Range (Female)**: 12.1 to 15.1 g/dL\n- **Low Hemoglobin (Anemia)**: Indicative of iron deficiency, vitamin B12/folate deficiency, chronic kidney disease, blood loss, or bone marrow failure. Symptoms include fatigue, weakness, pale skin, and shortness of breath.\n- **High Hemoglobin (Erythrocytosis)**: Associated with dehydration, smoking, chronic obstructive pulmonary disease (COPD), high altitude, or polycythemia vera."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## Red Blood Cells (RBC) Count\n- **Standard Range (Male)**: 4.5 to 5.9 million cells/mcL\n- **Standard Range (Female)**: 4.1 to 5.1 million cells/mcL\n- **Low RBC**: Indicates anemia, bleeding, nutritional deficiencies, or overhydration.\n- **High RBC**: Caused by dehydration, low oxygen conditions, kidney diseases triggering high erythropoietin, or bone marrow disorders."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## White Blood Cells (WBC) Count\n- **Standard Range**: 4,500 to 11,000 cells/mcL\n- **Low WBC (Leukopenia)**: Can be caused by viral infections, autoimmune conditions, bone marrow damage (toxins, cancer), or drugs like chemotherapy. Increases infection risk.\n- **High WBC (Leukocytosis)**: Typically indicates infection, inflammatory responses, stress, trauma, allergic reactions, or leukemia."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## Platelets (PLT) Count\n- **Standard Range**: 150,000 to 450,000 platelets/mcL\n- **Low Platelets (Thrombocytopenia)**: Risk of easy bruising or bleeding. Caused by viral infections, immune thrombocytopenia, chemotherapy, heavy alcohol consumption, or liver disease.\n- **High Platelets (Thrombocytosis)**: Risk of blood clots. Can be reactive (from inflammation, infection, iron deficiency) or due to bone marrow disease."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## Hematocrit (Hct)\n- **Standard Range (Male)**: 40.7% to 50.3%\n- **Standard Range (Female)**: 36.1% to 44.3%\n- **Low Hematocrit**: Correlates with anemia and blood loss.\n- **High Hematocrit**: Correlates with dehydration or polycythemia."
+  },
+  {
+    "source": "cbc.txt",
+    "content": "## Red Cell Indices (MCV, MCH, MCHC, RDW)\n- **MCV (Mean Corpuscular Volume)**: 80 to 96 fL. Measures the size of red blood cells. Low MCV indicates microcytic anemia (often iron deficiency). High MCV indicates macrocytic anemia (often Vitamin B12 or Folate deficiency).\n- **MCH (Mean Corpuscular Hemoglobin)**: 27 to 33 pg. Amount of hemoglobin per red cell.\n- **MCHC (Mean Corpuscular Hemoglobin Concentration)**: 32 to 36 g/dL. Concentration of hemoglobin in red cells.\n- **RDW (Red Cell Distribution Width)**: 11.5% to 14.5%. Measures variation in red blood cell size. Elevated RDW indicates mixed anemias or nutritional deficiencies."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "# Diabetes & Blood Sugar Reference Guide\n\nThis guide details blood glucose tests used to diagnose and monitor prediabetes and diabetes mellitus."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "## Glycated Hemoglobin (HbA1c)\n- **Normal (No Diabetes)**: Less than 5.7%\n- **Prediabetes**: 5.7% to 6.4%\n- **Diabetes**: 6.5% and above\n- **Clinical Significance**: HbA1c measures the average blood sugar level over the past 2 to 3 months. It represents the percentage of hemoglobin coated with glucose. Higher HbA1c levels indicate poorer glucose control and increase the risk of cardiovascular disease, neuropathy, retinopathy, and kidney damage."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "## Fasting Blood Glucose (FBG)\n- **Normal**: 70 to 99 mg/dL\n- **Prediabetes (Impaired Fasting Glucose)**: 100 to 125 mg/dL\n- **Diabetes**: 126 mg/dL and above (on two separate tests)\n- **Clinical Significance**: Measured after fasting for at least 8 hours. High levels indicate insulin resistance or insufficient insulin production."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "## Postprandial Blood Glucose (2-Hour PPBS)\n- **Normal**: Less than 140 mg/dL\n- **Prediabetes (Impaired Glucose Tolerance)**: 140 to 199 mg/dL\n- **Diabetes**: 200 mg/dL and above\n- **Clinical Significance**: Measured exactly 2 hours after a meal (or glucose tolerance drink). Evaluates how efficiently the body clears glucose from the bloodstream after food intake."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "## Random Blood Glucose (RBG)\n- **Normal**: Less than 140 mg/dL\n- **Diabetes Suspected**: 200 mg/dL or higher when accompanied by symptoms of diabetes (like extreme thirst, frequent urination, unexplained weight loss)."
+  },
+  {
+    "source": "diabetes_blood_sugar.txt",
+    "content": "## Clinical Symptoms of Diabetes\n- Polydipsia (increased thirst)\n- Polyuria (frequent urination)\n- Polyphagia (increased hunger)\n- Unexplained weight loss, fatigue, blurry vision, slow-healing sores.\n- **Specialist**: Endocrinologist or Diabetologist."
+  },
+  {
+    "source": "kft.txt",
+    "content": "# Kidney Function Test (KFT) Reference Guide\n\nKidney Function Tests (also known as Renal Function Tests) evaluate how well the kidneys filter wastes, control fluid balance, and regulate critical electrolytes."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## Serum Creatinine\n- **Standard Range (Male)**: 0.7 to 1.3 mg/dL\n- **Standard Range (Female)**: 0.6 to 1.1 mg/dL\n- **Clinical Significance**: Creatinine is a muscle waste product. High creatinine indicates reduced kidney function, dehydration, muscle injury (rhabdomyolysis), or urinary tract obstruction. Low creatinine can be caused by muscle wasting or malnutrition."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## Blood Urea Nitrogen (BUN)\n- **Standard Range**: 7 to 20 mg/dL\n- **Clinical Significance**: Urea nitrogen is a protein breakdown product. High BUN suggests kidney dysfunction, high protein diet, dehydration, gastrointestinal bleeding, or heart failure. Low BUN is associated with low protein diets, liver failure, or overhydration."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## BUN/Creatinine Ratio\n- **Standard Range**: 10:1 to 20:1\n- **Clinical Significance**: Helps identify the cause of kidney dysfunction. A high ratio (above 20:1) suggests dehydration or pre-renal causes. A normal to low ratio suggests intrinsic kidney damage."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## Estimated Glomerular Filtration Rate (eGFR)\n- **Normal**: 90 mL/min/1.73m² or above\n- **Mildly Decreased (Stage 2 CKD)**: 60 to 89 mL/min/1.73m²\n- **Moderately Decreased (Stage 3 CKD)**: 30 to 59 mL/min/1.73m²\n- **Severely Decreased (Stage 4 CKD)**: 15 to 29 mL/min/1.73m²\n- **Kidney Failure (Stage 5 CKD)**: Less than 15 mL/min/1.73m²\n- **Clinical Significance**: The gold standard for assessing kidney filtration function and staging Chronic Kidney Disease (CKD)."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## Uric Acid\n- **Standard Range (Male)**: 3.5 to 7.2 mg/dL\n- **Standard Range (Female)**: 2.6 to 6.0 mg/dL\n- **Clinical Significance**: Uric acid is formed by purine breakdown. High uric acid (hyperuricemia) can lead to gout (painful joint inflammation) or kidney stones. Low uric acid is less common and usually benign."
+  },
+  {
+    "source": "kft.txt",
+    "content": "## Electrolytes (Sodium, Potassium, Chloride)\n- **Sodium (Na+)**: 135 to 145 mEq/L. High sodium (hypernatremia) indicates dehydration or excess salt intake. Low sodium (hyponatremia) is caused by water retention, kidney disease, heart failure, or diuretics.\n- **Potassium (K+)**: 3.5 to 5.0 mEq/L. High potassium (hyperkalemia) or low potassium (hypokalemia) are life-threatening as they affect heart rhythm. Requires immediate medical attention.\n- **Chloride (Cl-)**: 96 to 106 mEq/L. Helps maintain proper blood volume and pressure."
+  },
+  {
+    "source": "lft.txt",
+    "content": "# Liver Function Test (LFT) Reference Guide\n\nLiver Function Tests (LFT) evaluate the health of your liver by measuring levels of proteins, liver enzymes, and bilirubin in your blood."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Alanine Transaminase (ALT) or SGPT\n- **Standard Range**: 7 to 56 U/L\n- **Clinical Significance**: ALT is an enzyme found mostly in the liver. High levels indicate liver injury or inflammation, commonly caused by viral hepatitis, fatty liver disease, alcohol consumption, or liver-toxic medications."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Aspartate Transaminase (AST) or SGOT\n- **Standard Range**: 8 to 48 U/L\n- **Clinical Significance**: AST is found in the liver, heart, and skeletal muscles. Elevated levels suggest liver damage or muscle injury. A high AST/ALT ratio can be associated with alcoholic liver disease."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Alkaline Phosphatase (ALP)\n- **Standard Range**: 44 to 147 U/L\n- **Clinical Significance**: ALP is an enzyme related to the bile ducts and bones. High levels indicate bile duct blockage, gallstones, liver diseases (cholestasis), or bone disorders (like Paget's disease or rapid bone growth/healing)."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Total Bilirubin\n- **Standard Range**: 0.1 to 1.2 mg/dL\n- **Clinical Significance**: Bilirubin is a byproduct of red blood cell breakdown. High levels cause jaundice (yellowing of skin/eyes). It suggests liver diseases (hepatitis, cirrhosis), bile duct obstruction, or hemolysis (increased RBC breakdown)."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Direct (Conjugated) Bilirubin\n- **Standard Range**: 0.0 to 0.3 mg/dL\n- **Clinical Significance**: Direct bilirubin is processed by the liver. High direct bilirubin suggests liver dysfunction or bile duct blockage."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Albumin\n- **Standard Range**: 3.5 to 5.0 g/dL\n- **Clinical Significance**: Albumin is the primary protein produced by the liver. Low albumin indicates chronic liver disease (cirrhosis), kidney disease (nephrotic syndrome), malnutrition, or inflammation. High albumin is usually due to dehydration."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Total Protein\n- **Standard Range**: 6.0 to 8.3 g/dL\n- **Clinical Significance**: Measures albumin and globulin. Low levels suggest liver or kidney disease. High levels can indicate chronic infection, inflammation, or bone marrow disorders like multiple myeloma."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Globulin\n- **Standard Range**: 2.0 to 3.5 g/dL\n- **Clinical Significance**: Part of the immune system. Low levels suggest malnutrition or liver/kidney disorders. High levels suggest chronic infection or autoimmune disorders."
+  },
+  {
+    "source": "lft.txt",
+    "content": "## Albumin/Globulin (A/G) Ratio\n- **Standard Range**: 1.1 to 2.5\n- **Clinical Significance**: A low ratio suggests liver disease, kidney disease, or overproduction of globulin."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "# Lipid Profile Reference Guide\n\nA lipid profile measures the level of specific lipids (fats) in your blood. It is a critical indicator of cardiovascular health, atherosclerosis risk, and metabolic function."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## Total Cholesterol\n- **Desirable**: Less than 200 mg/dL\n- **Borderline High**: 200 to 239 mg/dL\n- **High**: 240 mg/dL and above\n- **Clinical Significance**: High total cholesterol is a risk factor for coronary heart disease, peripheral artery disease, and stroke."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## Low-Density Lipoprotein (LDL) - \"Bad\" Cholesterol\n- **Optimal**: Less than 100 mg/dL\n- **Near/Above Optimal**: 100 to 129 mg/dL\n- **Borderline High**: 130 to 159 mg/dL\n- **High**: 160 to 189 mg/dL\n- **Very High**: 190 mg/dL and above\n- **Clinical Significance**: LDL carries cholesterol to tissues and arteries. Excess LDL accumulates in artery walls (plaque), leading to atherosclerosis. Treatment includes diet changes, statins, and exercise."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## High-Density Lipoprotein (HDL) - \"Good\" Cholesterol\n- **Optimal / Low Risk**: 60 mg/dL and above\n- **Acceptable (Male)**: 40 to 59 mg/dL\n- **Acceptable (Female)**: 50 to 59 mg/dL\n- **Low (High Risk, Male)**: Less than 40 mg/dL\n- **Low (High Risk, Female)**: Less than 50 mg/dL\n- **Clinical Significance**: HDL transports cholesterol back to the liver for disposal. High HDL protects against heart disease, while low HDL increases risk."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## Triglycerides\n- **Normal**: Less than 150 mg/dL\n- **Borderline High**: 150 to 199 mg/dL\n- **High**: 200 to 499 mg/dL\n- **Very High**: 500 mg/dL and above\n- **Clinical Significance**: Triglycerides are a type of fat used for energy storage. High levels can indicate metabolic syndrome, prediabetes, hypothyroidism, or kidney disease, and very high levels can cause acute pancreatitis."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## Very Low-Density Lipoprotein (VLDL)\n- **Normal Range**: 5 to 30 mg/dL\n- **Clinical Significance**: VLDL carries triglycerides. Elevated levels contribute to plaque buildup."
+  },
+  {
+    "source": "lipid_profile.txt",
+    "content": "## Total Cholesterol / HDL Ratio\n- **Optimal**: Under 5.0 (Lower is better; 3.5 or below is ideal)\n- **Clinical Significance**: Helps evaluate the balance of good vs. bad cholesterol."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "# Thyroid Profile Reference Guide\n\nA Thyroid Profile evaluates the function of the thyroid gland, which controls the body's metabolism and energy usage."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "## Thyroid-Stimulating Hormone (TSH)\n- **Standard Range**: 0.4 to 4.5 mIU/L\n- **High TSH**: Indicates Hypothyroidism (underactive thyroid). The pituitary gland produces extra TSH to stimulate the thyroid.\n- **Low TSH**: Indicates Hyperthyroidism (overactive thyroid) or pituitary insufficiency. The thyroid is overproducing hormones, causing the pituitary to scale back TSH."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "## Free Thyroxine (Free T4)\n- **Standard Range**: 0.8 to 1.8 ng/dL\n- **Clinical Significance**: Free T4 is the active form of thyroxine. Elevated Free T4 indicates hyperthyroidism. Low Free T4 indicates hypothyroidism."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "## Free Triiodothyronine (Free T3)\n- **Standard Range**: 2.0 to 4.4 pg/mL\n- **Clinical Significance**: Free T3 is often measured to diagnose hyperthyroidism or monitor its treatment. High levels occur in hyperthyroidism, while low levels can occur in severe non-thyroidal illness."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "## Hypothyroidism (Underactive Thyroid)\n- **Lab Profile**: High TSH, low or low-normal Free T4/Free T3.\n- **Symptoms**: Fatigue, weight gain, constipation, dry skin, thinning hair, cold intolerance, depression, slow heart rate.\n- **Specialist**: Endocrinologist."
+  },
+  {
+    "source": "thyroid.txt",
+    "content": "## Hyperthyroidism (Overactive Thyroid)\n- **Lab Profile**: Low TSH, high or high-normal Free T4/Free T3.\n- **Symptoms**: Weight loss, rapid or irregular heartbeat (tachycardia), anxiety, irritability, heat intolerance, sweating, hand tremors, frequent bowel movements.\n- **Specialist**: Endocrinologist."
+  },
+  {
+    "source": "vitamins.txt",
+    "content": "# Vitamin D and Vitamin B12 Reference Guide\n\nVitamins are essential organic compounds needed in small quantities for metabolic function, bone health, nerve function, and red blood cell production."
+  },
+  {
+    "source": "vitamins.txt",
+    "content": "## Vitamin D (25-Hydroxyvitamin D)\n- **Deficiency**: Less than 20 ng/mL\n- **Insufficiency**: 20 to 29 ng/mL\n- **Sufficiency (Normal)**: 30 to 100 ng/mL\n- **Toxicity**: Greater than 100 ng/mL (can lead to hypercalcemia, kidney stones, and calcification of blood vessels)\n- **Clinical Significance**: Vitamin D is critical for calcium absorption and bone health, immune function, and reducing inflammation. Deficiency leads to rickets in children and osteomalacia/osteoporosis in adults. Symptoms include bone pain, muscle weakness, fatigue, and mood changes."
+  },
+  {
+    "source": "vitamins.txt",
+    "content": "## Vitamin B12 (Cobalamin)\n- **Deficiency**: Less than 200 pg/mL\n- **Borderline / Low Normal**: 200 to 300 pg/mL\n- **Normal Range**: 300 to 900 pg/mL\n- **Clinical Significance**: B12 is essential for red blood cell formation, neurological function, and DNA synthesis.\n- **B12 Deficiency**: Causes megaloblastic anemia (large, abnormal RBCs) and neurological issues (numbness, tingling in hands/feet, balance problems, memory loss, cognitive decline). Often seen in vegetarians/vegans, older adults, and individuals with malabsorption disorders (like Crohn's disease or pernicious anemia)."
+  },
+  {
+    "source": "who_nih_ranges.txt",
+    "content": "# WHO and NIH General Reference Guidelines\n\nThis guide consolidates recommendations from the World Health Organization (WHO) and the National Institutes of Health (NIH) regarding global health markers, diagnostic criteria, and standard screening intervals."
+  },
+  {
+    "source": "who_nih_ranges.txt",
+    "content": "## Core Metabolic Guidelines\n- **Fasting Plasma Glucose**: WHO recommends screening for diabetes starting at age 45 or earlier in high-risk individuals. Standard thresholds identify diabetes at fasting levels >= 126 mg/dL.\n- **Cardiovascular Risk Screening**: Total cholesterol should ideally remain under 200 mg/dL. High LDL-C (>190 mg/dL) warrants pharmacotherapy (such as statins) regardless of general risk factors.\n- **Anemia Thresholds**: WHO defines anemia in males as Hb < 13.0 g/dL, and in non-pregnant females as Hb < 12.0 g/dL."
+  },
+  {
+    "source": "who_nih_ranges.txt",
+    "content": "## Essential Screening Frequency\n- **Lipid Panel**: Every 4 to 6 years for healthy adults starting at age 20. More frequent screening is recommended for diabetes, hypertension, or a family history of premature heart disease.\n- **Blood Glucose**: Every 3 years starting at age 45, or annually if overweight with additional risk factors (e.g., prediabetes, gestational diabetes history).\n- **Renal & Hepatic Profiles**: Part of the annual physical checkup for patients over 50, or for those managing diabetes, hypertension, or taking hepatotoxic or nephrotoxic medications."
+  },
+  {
+    "source": "who_nih_ranges.txt",
+    "content": "## Diagnostic Standards for Cardiovascular and Renal Health\n- **Chronic Kidney Disease (CKD)**: Persistently decreased eGFR (<60 mL/min/1.73m²) or presence of albuminuria (>30 mg/g creatinine) for more than 3 months indicates CKD.\n- **Hypertension**: A single high BP reading does not confirm hypertension. Diagnoses require multiple elevated readings across separate clinical encounters.\n- **Hypo- and Hyper-thyroidism**: Diagnosed by assessing serum TSH first. If abnormal, Free T4 testing is conducted to determine clinical vs subclinical status."
+  }
+]

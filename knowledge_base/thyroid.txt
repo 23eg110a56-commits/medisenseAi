@@ -1,0 +1,26 @@
+# Thyroid Profile Reference Guide
+
+A Thyroid Profile evaluates the function of the thyroid gland, which controls the body's metabolism and energy usage.
+
+## Thyroid-Stimulating Hormone (TSH)
+- **Standard Range**: 0.4 to 4.5 mIU/L
+- **High TSH**: Indicates Hypothyroidism (underactive thyroid). The pituitary gland produces extra TSH to stimulate the thyroid.
+- **Low TSH**: Indicates Hyperthyroidism (overactive thyroid) or pituitary insufficiency. The thyroid is overproducing hormones, causing the pituitary to scale back TSH.
+
+## Free Thyroxine (Free T4)
+- **Standard Range**: 0.8 to 1.8 ng/dL
+- **Clinical Significance**: Free T4 is the active form of thyroxine. Elevated Free T4 indicates hyperthyroidism. Low Free T4 indicates hypothyroidism.
+
+## Free Triiodothyronine (Free T3)
+- **Standard Range**: 2.0 to 4.4 pg/mL
+- **Clinical Significance**: Free T3 is often measured to diagnose hyperthyroidism or monitor its treatment. High levels occur in hyperthyroidism, while low levels can occur in severe non-thyroidal illness.
+
+## Hypothyroidism (Underactive Thyroid)
+- **Lab Profile**: High TSH, low or low-normal Free T4/Free T3.
+- **Symptoms**: Fatigue, weight gain, constipation, dry skin, thinning hair, cold intolerance, depression, slow heart rate.
+- **Specialist**: Endocrinologist.
+
+## Hyperthyroidism (Overactive Thyroid)
+- **Lab Profile**: Low TSH, high or high-normal Free T4/Free T3.
+- **Symptoms**: Weight loss, rapid or irregular heartbeat (tachycardia), anxiety, irritability, heat intolerance, sweating, hand tremors, frequent bowel movements.
+- **Specialist**: Endocrinologist.

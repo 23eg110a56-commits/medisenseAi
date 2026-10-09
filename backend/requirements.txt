@@ -1,0 +1,43 @@
+# --- Web framework ---
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic[email]>=2.9.0
+pydantic-settings>=2.5.0
+python-multipart>=0.0.12
+
+# --- Database (MongoDB driver; app falls back to embedded JSON store if unreachable) ---
+motor>=3.6.0
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+psycopg2-binary>=2.9.9
+
+# --- Auth ---
+python-jose[cryptography]>=3.3.0
+passlib>=1.7.4
+bcrypt==4.0.1
+
+# --- Document text extraction / OCR ---
+pymupdf>=1.24.10
+pdfplumber>=0.11.4
+opencv-python-headless>=4.10.0.84
+pillow>=11.0.0
+numpy>=2.1.0
+pytesseract>=0.3.13
+easyocr>=1.7.2
+
+# --- Embeddings & vector retrieval (RAG) ---
+torch>=2.6.0
+sentence-transformers>=3.3.0
+faiss-cpu>=1.9.0
+
+# --- LLM provider (optional at runtime: app degrades honestly if absent/unconfigured) ---
+google-genai>=1.0.0
+
+# --- Exports ---
+python-docx>=1.1.2
+reportlab>=4.2.5
+
+# --- Testing ---
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+httpx>=0.27.0

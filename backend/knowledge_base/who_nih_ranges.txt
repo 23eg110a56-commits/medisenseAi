@@ -1,0 +1,18 @@
+# WHO and NIH General Reference Guidelines
+
+This guide consolidates recommendations from the World Health Organization (WHO) and the National Institutes of Health (NIH) regarding global health markers, diagnostic criteria, and standard screening intervals.
+
+## Core Metabolic Guidelines
+- **Fasting Plasma Glucose**: WHO recommends screening for diabetes starting at age 45 or earlier in high-risk individuals. Standard thresholds identify diabetes at fasting levels >= 126 mg/dL.
+- **Cardiovascular Risk Screening**: Total cholesterol should ideally remain under 200 mg/dL. High LDL-C (>190 mg/dL) warrants pharmacotherapy (such as statins) regardless of general risk factors.
+- **Anemia Thresholds**: WHO defines anemia in males as Hb < 13.0 g/dL, and in non-pregnant females as Hb < 12.0 g/dL.
+
+## Essential Screening Frequency
+- **Lipid Panel**: Every 4 to 6 years for healthy adults starting at age 20. More frequent screening is recommended for diabetes, hypertension, or a family history of premature heart disease.
+- **Blood Glucose**: Every 3 years starting at age 45, or annually if overweight with additional risk factors (e.g., prediabetes, gestational diabetes history).
+- **Renal & Hepatic Profiles**: Part of the annual physical checkup for patients over 50, or for those managing diabetes, hypertension, or taking hepatotoxic or nephrotoxic medications.
+
+## Diagnostic Standards for Cardiovascular and Renal Health
+- **Chronic Kidney Disease (CKD)**: Persistently decreased eGFR (<60 mL/min/1.73m²) or presence of albuminuria (>30 mg/g creatinine) for more than 3 months indicates CKD.
+- **Hypertension**: A single high BP reading does not confirm hypertension. Diagnoses require multiple elevated readings across separate clinical encounters.
+- **Hypo- and Hyper-thyroidism**: Diagnosed by assessing serum TSH first. If abnormal, Free T4 testing is conducted to determine clinical vs subclinical status.

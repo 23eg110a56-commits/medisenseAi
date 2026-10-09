@@ -1,0 +1,32 @@
+# Diabetes & Blood Sugar Reference Guide
+
+This guide details blood glucose tests used to diagnose and monitor prediabetes and diabetes mellitus.
+
+## Glycated Hemoglobin (HbA1c)
+- **Normal (No Diabetes)**: Less than 5.7%
+- **Prediabetes**: 5.7% to 6.4%
+- **Diabetes**: 6.5% and above
+- **Clinical Significance**: HbA1c measures the average blood sugar level over the past 2 to 3 months. It represents the percentage of hemoglobin coated with glucose. Higher HbA1c levels indicate poorer glucose control and increase the risk of cardiovascular disease, neuropathy, retinopathy, and kidney damage.
+
+## Fasting Blood Glucose (FBG)
+- **Normal**: 70 to 99 mg/dL
+- **Prediabetes (Impaired Fasting Glucose)**: 100 to 125 mg/dL
+- **Diabetes**: 126 mg/dL and above (on two separate tests)
+- **Clinical Significance**: Measured after fasting for at least 8 hours. High levels indicate insulin resistance or insufficient insulin production.
+
+## Postprandial Blood Glucose (2-Hour PPBS)
+- **Normal**: Less than 140 mg/dL
+- **Prediabetes (Impaired Glucose Tolerance)**: 140 to 199 mg/dL
+- **Diabetes**: 200 mg/dL and above
+- **Clinical Significance**: Measured exactly 2 hours after a meal (or glucose tolerance drink). Evaluates how efficiently the body clears glucose from the bloodstream after food intake.
+
+## Random Blood Glucose (RBG)
+- **Normal**: Less than 140 mg/dL
+- **Diabetes Suspected**: 200 mg/dL or higher when accompanied by symptoms of diabetes (like extreme thirst, frequent urination, unexplained weight loss).
+
+## Clinical Symptoms of Diabetes
+- Polydipsia (increased thirst)
+- Polyuria (frequent urination)
+- Polyphagia (increased hunger)
+- Unexplained weight loss, fatigue, blurry vision, slow-healing sores.
+- **Specialist**: Endocrinologist or Diabetologist.
