@@ -52,6 +52,21 @@ describe('api request interceptor', () => {
     expect(seen.headers.Authorization).toBeUndefined();
     restore();
   });
+
+  it('strips Content-Type application/json when sending FormData so multipart boundary is preserved', async () => {
+    let seen: any = null;
+    const restore = useAdapter(async (config) => {
+      seen = config;
+      return { data: {}, status: 200, statusText: 'OK', headers: {}, config };
+    });
+
+    const formData = new FormData();
+    formData.append('sample', 'test');
+    await api.post('/reports/upload', formData);
+
+    expect(seen.headers['Content-Type']).not.toBe('application/json');
+    restore();
+  });
 });
 
 describe('api response interceptor', () => {

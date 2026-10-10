@@ -54,3 +54,6 @@ Thumbs.db
 
 # Local logs
 *.log
+
+# Binaries
+cloudflared.exe

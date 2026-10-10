@@ -91,6 +91,31 @@ class GeminiClient:
                 self.config_error,
             )
 
+    def configure(self, api_key: str) -> bool:
+        """Dynamically configure the client with a new API key."""
+        self.api_key = (api_key or "").strip()
+        if not HAS_GENAI:
+            self.config_error = "The 'google-genai' package is not installed."
+            self.is_configured = False
+            return False
+        if not self.api_key:
+            self.config_error = "GEMINI_API_KEY is not set."
+            self.is_configured = False
+            self._client = None
+            return False
+        try:
+            self._client = genai.Client(api_key=self.api_key)
+            self.is_configured = True
+            self.config_error = None
+            logger.info("Gemini client successfully configured; LLM analysis enabled.")
+            return True
+        except Exception as exc:
+            self.config_error = f"Failed to configure the Gemini client: {exc}"
+            self.is_configured = False
+            self._client = None
+            logger.error(self.config_error)
+            return False
+
     def status(self) -> Dict[str, Any]:
         """Machine-readable availability, surfaced to the UI so degraded mode is never hidden."""
         return {

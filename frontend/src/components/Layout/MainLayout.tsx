@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
-import { AlertCircle, Cpu, ScanLine } from 'lucide-react';
+import { AlertCircle, Cpu, ScanLine, Sparkles } from 'lucide-react';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useSystemStatus } from '../../context/SystemStatusContext';
+import { ConfigureGeminiModal } from '../ConfigureGeminiModal';
 
 export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [geminiModalOpen, setGeminiModalOpen] = useState(false);
   const { t } = useTranslation();
   const { status } = useSystemStatus();
 
@@ -36,20 +38,28 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
           <div className="mx-auto max-w-6xl">
             {/* Honest capability disclosure: degraded mode must never look like real AI output */}
             {llmDown && (
-              <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 print:hidden">
-                <Cpu className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
-                    AI model not configured
-                  </h4>
-                  <p className="mt-1 text-xs leading-relaxed text-amber-700/90 dark:text-amber-200/80">
-                    No language model is connected to this server
-                    {status?.llm.reason ? ` (${status.llm.reason})` : ''}. Reports are analysed by a
-                    rule-based parser that only reports values actually printed in your document, and the
-                    chat assistant returns retrieved evidence instead of generated answers. Set
-                    GEMINI_API_KEY in backend/.env to enable AI analysis.
-                  </p>
+              <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 print:hidden">
+                <div className="flex items-start gap-3">
+                  <Cpu className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                      AI model not configured
+                    </h4>
+                    <p className="mt-1 text-xs leading-relaxed text-amber-700/90 dark:text-amber-200/80">
+                      No language model is connected to this server
+                      {status?.llm.reason ? ` (${status.llm.reason})` : ''}. Reports are analysed by a
+                      rule-based parser that only reports values actually printed in your document, and the
+                      chat assistant returns retrieved evidence instead of generated answers. Set
+                      GEMINI_API_KEY in backend/.env to enable AI analysis.
+                    </p>
+                  </div>
                 </div>
+                <button
+                  onClick={() => setGeminiModalOpen(true)}
+                  className="shrink-0 flex items-center gap-1.5 self-start sm:self-center rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:from-amber-600 hover:to-amber-700 active:scale-95 transition-all cursor-pointer"
+                >
+                  <Sparkles className="h-3.5 w-3.5" /> Configure Gemini Key
+                </button>
               </div>
             )}
 
@@ -87,6 +97,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
           </div>
         </main>
       </div>
+      <ConfigureGeminiModal isOpen={geminiModalOpen} onClose={() => setGeminiModalOpen(false)} />
     </div>
   );
 };

@@ -2,12 +2,13 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   UploadCloud, File, AlertCircle, Loader2, ArrowRight,
-  ScanText, FileWarning, ClipboardEdit
+  ScanText, FileWarning, ClipboardEdit, Sparkles, CheckCircle2, Cpu
 } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useSystemStatus } from '../context/SystemStatusContext';
 import { useTranslation } from '../hooks/useTranslation';
+import { ConfigureGeminiModal } from '../components/ConfigureGeminiModal';
 
 interface ExtractedReport {
   id: string;
@@ -19,7 +20,7 @@ interface ExtractedReport {
   extracted_text: string;
 }
 
-type ItemStatus = 'idle' | 'uploading' | 'extracting' | 'done' | 'failed';
+type ItemStatus = 'idle' | 'uploading' | 'extracting' | 'analyzing' | 'done' | 'failed';
 
 interface UploadQueueItem {
   file: File;
@@ -33,7 +34,7 @@ const ENGINE_LABELS: Record<string, string> = {
   pdf_text_layer: 'Text layer read from the PDF',
   easyocr: 'EasyOCR (on-device)',
   tesseract: 'Tesseract OCR',
-  vision_model: 'Vision model',
+  vision_model: 'Gemini Vision model',
 };
 
 export const Upload: React.FC = () => {
@@ -48,8 +49,10 @@ export const Upload: React.FC = () => {
 
   const [queue, setQueue] = useState<UploadQueueItem[]>([]);
   const [language, setLanguage] = useState(user?.language || 'en');
+  const [autoAnalyze, setAutoAnalyze] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [geminiModalOpen, setGeminiModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -74,6 +77,10 @@ export const Upload: React.FC = () => {
     e.target.value = '';
   };
 
+  const patchItem = (index: number, patch: Partial<UploadQueueItem>) => {
+    setQueue(prev => prev.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+  };
+
   const addFilesToQueue = (files: File[]) => {
     const accepted: UploadQueueItem[] = [];
     const rejected: string[] = [];
@@ -96,7 +103,6 @@ export const Upload: React.FC = () => {
     }
 
     if (rejected.length) {
-      // Surfaced inline rather than with alert() so several rejections stay readable.
       setQueue(prev => [
         ...prev,
         ...rejected.map(message => ({
@@ -108,7 +114,14 @@ export const Upload: React.FC = () => {
         ...accepted,
       ]);
     } else {
-      setQueue(prev => [...prev, ...accepted]);
+      setQueue(prev => {
+        const nextQueue = [...prev, ...accepted];
+        // Automatically start upload for the newly added accepted files
+        setTimeout(() => {
+          processPendingQueue(nextQueue);
+        }, 100);
+        return nextQueue;
+      });
     }
   };
 
@@ -116,43 +129,40 @@ export const Upload: React.FC = () => {
     setQueue(prev => prev.filter((_, i) => i !== index));
   };
 
-  const patchItem = (index: number, patch: Partial<UploadQueueItem>) => {
-    setQueue(prev => prev.map((item, i) => (i === index ? { ...item, ...patch } : item)));
-  };
-
-  const startUpload = async () => {
+  const processPendingQueue = async (currentQueue: UploadQueueItem[]) => {
     if (busy) return;
-    const pending = queue
-      .map((item, index) => ({ item, index }))
+    const pendingIndices = currentQueue
+      .map((item, idx) => ({ item, idx }))
       .filter(({ item }) => item.status === 'idle');
-    if (pending.length === 0) return;
+
+    if (pendingIndices.length === 0) return;
 
     setBusy(true);
-    for (const { item, index } of pending) {
+
+    for (const { item, idx } of pendingIndices) {
       const formData = new FormData();
       formData.append('files', item.file);
       formData.append('language', language);
 
-      patchItem(index, { status: 'uploading', progress: 5, error: undefined });
+      patchItem(idx, { status: 'uploading', progress: 20, error: undefined });
 
       try {
         const res = await api.post('/reports/upload', formData, {
           onUploadProgress: (event) => {
             if (!event.total) return;
-            // Upload bytes only cover part of the work; OCR follows server-side.
             const pct = Math.min(70, Math.round((event.loaded / event.total) * 70));
-            patchItem(index, { progress: Math.max(5, pct) });
+            patchItem(idx, { progress: Math.max(20, pct) });
           },
         });
 
-        patchItem(index, { status: 'extracting', progress: 85 });
+        patchItem(idx, { status: 'extracting', progress: 85 });
 
         const payload = res.data as { reports: ExtractedReport[]; errors: { filename: string; detail: string }[] };
         const uploaded = payload.reports?.[0];
         const perFileError = payload.errors?.find(e => e.filename === item.file.name);
 
         if (!uploaded) {
-          patchItem(index, {
+          patchItem(idx, {
             status: 'failed',
             progress: 100,
             error: perFileError?.detail || 'The server could not store this file.',
@@ -160,18 +170,57 @@ export const Upload: React.FC = () => {
           continue;
         }
 
-        patchItem(index, { status: 'done', progress: 100, report: uploaded });
+        // Check if auto-analyze is enabled and text was extracted
+        if (autoAnalyze && uploaded.extracted_text && uploaded.extracted_text.trim().length > 0) {
+          patchItem(idx, { status: 'analyzing', progress: 92, report: uploaded });
+          try {
+            await api.post(`/reports/${uploaded.id}/analyze`, { language });
+            patchItem(idx, {
+              status: 'done',
+              progress: 100,
+              report: { ...uploaded, analysis_status: 'analyzed' },
+            });
+            await refreshProfile();
+            // If single file uploaded with auto-analyze, navigate directly to analysis
+            if (pendingIndices.length === 1) {
+              navigate(`/analysis/${uploaded.id}`);
+              return;
+            }
+          } catch (analyzeErr) {
+            // Keep uploaded report available even if LLM analysis fails
+            patchItem(idx, { status: 'done', progress: 100, report: uploaded });
+          }
+        } else {
+          patchItem(idx, { status: 'done', progress: 100, report: uploaded });
+        }
       } catch (err: any) {
         const detail = err?.response?.data?.detail;
-        patchItem(index, {
+        patchItem(idx, {
           status: 'failed',
           progress: 100,
           error: typeof detail === 'string' ? detail : detail?.message || 'Upload failed. Check your connection and try again.',
         });
       }
     }
+
     setBusy(false);
     await refreshProfile();
+  };
+
+  const handleManualAnalyze = async (index: number, reportId: string) => {
+    patchItem(index, { status: 'analyzing', progress: 90 });
+    try {
+      await api.post(`/reports/${reportId}/analyze`, { language });
+      patchItem(index, { status: 'done', progress: 100 });
+      await refreshProfile();
+      navigate(`/analysis/${reportId}`);
+    } catch (err: any) {
+      const detail = err?.response?.data?.detail;
+      patchItem(index, {
+        status: 'done',
+        error: typeof detail === 'string' ? detail : 'Analysis failed. Check your connection or edit text first.',
+      });
+    }
   };
 
   const statusText = (item: UploadQueueItem): string => {
@@ -179,7 +228,11 @@ export const Upload: React.FC = () => {
       case 'idle': return 'Queued';
       case 'uploading': return 'Uploading…';
       case 'extracting': return 'Extracting text (OCR)…';
-      case 'done': return item.report?.analysis_status === 'extraction_failed' ? 'Needs review' : 'Text extracted';
+      case 'analyzing': return 'Analyzing with Gemini AI…';
+      case 'done':
+        if (item.report?.analysis_status === 'analyzed') return 'Analysis complete';
+        if (item.report?.analysis_status === 'extraction_failed') return 'Needs manual text';
+        return 'Text extracted';
       case 'failed': return 'Failed';
     }
   };
@@ -187,25 +240,47 @@ export const Upload: React.FC = () => {
   const barColor = (s: ItemStatus) => {
     if (s === 'done') return 'bg-emerald-500';
     if (s === 'failed') return 'bg-red-500';
+    if (s === 'analyzing') return 'bg-gradient-to-r from-primary-500 to-teal-400 animate-pulse';
     if (s === 'extracting') return 'bg-teal-500 animate-pulse';
     return 'bg-primary-500';
   };
 
   const hasPending = queue.some(item => item.status === 'idle');
   const ocrUnavailable = systemStatus ? !systemStatus.ocr.any_engine_available : false;
+  const llmUnavailable = systemStatus ? !systemStatus.llm.configured : false;
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="max-w-3xl mx-auto space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 flex items-center gap-2">
           <UploadCloud className="h-8 w-8 text-primary-500" />
           {t('uploadReport')}
         </h1>
         <p className="mt-1.5 text-sm text-slate-400">
-          Upload blood work, lipid profiles, CBC, thyroid or imaging reports. Uploading extracts the
-          text only — you review and correct it before any analysis runs.
+          Upload medical reports (CBC, Lipid Panel, Blood Tests, Thyroid, Imaging). MediSense AI extracts
+          document contents and produces comprehensive biomarker interpretations.
         </p>
       </div>
+
+      {llmUnavailable && (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-800 dark:border-amber-950/30 dark:bg-amber-950/20 dark:text-amber-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-start gap-2.5">
+            <Cpu className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+            <div>
+              <p className="font-bold">Google Gemini AI is not configured yet.</p>
+              <p className="mt-0.5 text-amber-700 dark:text-amber-300/80">
+                Reports will fall back to rule-based parsing. Activate Gemini AI to get automated clinical summaries and interactive chat.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setGeminiModalOpen(true)}
+            className="shrink-0 flex items-center gap-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-transform active:scale-95"
+          >
+            <Sparkles className="h-3.5 w-3.5" /> Configure Gemini Key
+          </button>
+        </div>
+      )}
 
       {ocrUnavailable && (
         <div className="rounded-2xl border border-orange-200 bg-orange-50 p-4 text-xs text-orange-800 dark:border-orange-950/30 dark:bg-orange-950/10 dark:text-orange-300">
@@ -218,20 +293,35 @@ export const Upload: React.FC = () => {
       )}
 
       <div className="rounded-3xl border border-slate-100 bg-white p-6 dark:border-slate-800 dark:bg-navy-800 shadow-glass space-y-6">
-        <div className="max-w-xs">
-          <label htmlFor="uploadLang" className="block text-xs font-bold uppercase tracking-wider text-slate-400">
-            Analysis Output Language
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="max-w-xs w-full">
+            <label htmlFor="uploadLang" className="block text-xs font-bold uppercase tracking-wider text-slate-400">
+              Analysis Output Language
+            </label>
+            <select
+              id="uploadLang"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:bg-white dark:border-slate-700 dark:bg-navy-900 dark:text-white"
+            >
+              <option value="en">English</option>
+              <option value="hi">Hindi (हिन्दी)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+            </select>
+          </div>
+
+          <label className="flex items-center gap-2.5 cursor-pointer self-start sm:self-end pb-1 select-none">
+            <input
+              type="checkbox"
+              checked={autoAnalyze}
+              onChange={(e) => setAutoAnalyze(e.target.checked)}
+              className="h-4 w-4 rounded border-slate-300 text-primary-500 focus:ring-primary-400 cursor-pointer"
+            />
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5 text-primary-500" />
+              Auto-analyze with AI after upload
+            </span>
           </label>
-          <select
-            id="uploadLang"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm outline-none focus:bg-white dark:border-slate-700 dark:bg-navy-900 dark:text-white"
-          >
-            <option value="en">English</option>
-            <option value="hi">Hindi (हिन्दी)</option>
-            <option value="te">Telugu (తెలుగు)</option>
-          </select>
         </div>
 
         <div
@@ -268,20 +358,26 @@ export const Upload: React.FC = () => {
         </div>
 
         {queue.length > 0 && (
-          <div className="space-y-4">
+          <div className="space-y-4 pt-2">
             <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">
-              Files ({queue.length})
+              Report Files ({queue.length})
             </h3>
             <div className="space-y-3">
               {queue.map((item, idx) => (
                 <div
                   key={`${item.file.name}-${idx}`}
-                  className="rounded-2xl border border-slate-100 p-4 dark:border-slate-700/50 dark:bg-navy-800 bg-slate-50/50"
+                  className="rounded-2xl border border-slate-100 p-4 dark:border-slate-700/50 dark:bg-navy-800 bg-slate-50/50 shadow-sm"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3 truncate">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-400 dark:bg-navy-900 border border-slate-100 dark:border-slate-800">
-                        {item.status === 'failed' ? <FileWarning className="h-5 w-5 text-red-400" /> : <File className="h-5 w-5" />}
+                        {item.status === 'failed' ? (
+                          <FileWarning className="h-5 w-5 text-red-400" />
+                        ) : item.status === 'done' && item.report?.analysis_status === 'analyzed' ? (
+                          <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                        ) : (
+                          <File className="h-5 w-5" />
+                        )}
                       </div>
                       <div className="truncate">
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
@@ -296,6 +392,7 @@ export const Upload: React.FC = () => {
                     <div className="flex items-center gap-3 shrink-0">
                       <span className={`text-xs font-semibold ${
                         item.status === 'done' ? 'text-emerald-500' :
+                        item.status === 'analyzing' ? 'text-primary-500 font-bold' :
                         item.status === 'failed' ? 'text-red-500' : 'text-slate-500'
                       }`}>
                         {statusText(item)}
@@ -311,12 +408,31 @@ export const Upload: React.FC = () => {
                       )}
 
                       {item.status === 'done' && item.report && (
-                        <button
-                          onClick={() => navigate(`/analysis/${item.report!.id}`)}
-                          className="flex items-center gap-1 text-xs font-bold text-primary-600 hover:underline dark:text-primary-400"
-                        >
-                          <ClipboardEdit className="h-3.5 w-3.5" /> Review text <ArrowRight className="h-3 w-3" />
-                        </button>
+                        <div className="flex items-center gap-2">
+                          {item.report.analysis_status === 'analyzed' ? (
+                            <button
+                              onClick={() => navigate(`/analysis/${item.report!.id}`)}
+                              className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-600 active:scale-95 transition-all"
+                            >
+                              View Analysis <ArrowRight className="h-3 w-3" />
+                            </button>
+                          ) : (
+                            <>
+                              <button
+                                onClick={() => handleManualAnalyze(idx, item.report!.id)}
+                                className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-primary-500 to-teal-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:brightness-105 active:scale-95 transition-all"
+                              >
+                                <Sparkles className="h-3 w-3" /> Analyze with AI
+                              </button>
+                              <button
+                                onClick={() => navigate(`/analysis/${item.report!.id}`)}
+                                className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:underline"
+                              >
+                                <ClipboardEdit className="h-3.5 w-3.5" /> Review text
+                              </button>
+                            </>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -368,28 +484,38 @@ export const Upload: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex items-center justify-between gap-3 pt-3">
-              <p className="text-[11px] text-slate-400">
-                Step 1 of 2 — upload and extract. Analysis runs after you confirm the text.
-              </p>
-              <button
-                onClick={startUpload}
-                disabled={busy || !hasPending}
-                className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary-500 to-teal-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary-500/10 transition-transform active:scale-95 disabled:scale-100 disabled:opacity-50"
-              >
-                {busy ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Uploading…
-                  </>
-                ) : (
-                  'Upload & extract text'
-                )}
-              </button>
-            </div>
+            {hasPending && (
+              <div className="flex items-center justify-between gap-3 pt-3">
+                <p className="text-[11px] text-slate-400">
+                  Click below to start upload and analysis for pending reports.
+                </p>
+                <button
+                  onClick={() => processPendingQueue(queue)}
+                  disabled={busy}
+                  className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary-500 to-teal-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/10 transition-transform active:scale-95 disabled:scale-100 disabled:opacity-50 cursor-pointer"
+                >
+                  {busy ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Processing…
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4" />
+                      Upload &amp; Analyze Reports
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
+
+      <ConfigureGeminiModal
+        isOpen={geminiModalOpen}
+        onClose={() => setGeminiModalOpen(false)}
+      />
     </div>
   );
 };

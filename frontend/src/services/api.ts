@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Get backend API base url
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+// Get backend API base url (defaults to relative /api/v1 for Vite proxy)
+const API_URL = import.meta.env.VITE_API_URL || '/api/v1';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -16,6 +16,14 @@ api.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    // If sending FormData, remove Content-Type so browser/axios sets multipart boundary
+    if (config.data instanceof FormData && config.headers) {
+      if (typeof (config.headers as any).delete === 'function') {
+        (config.headers as any).delete('Content-Type');
+      } else {
+        delete config.headers['Content-Type'];
+      }
     }
     return config;
   },
