@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   UploadCloud, File, AlertCircle, Loader2, ArrowRight,
-  ScanText, FileWarning, ClipboardEdit, Sparkles, CheckCircle2, Cpu
+  ScanText, FileWarning, ClipboardEdit, Sparkles, CheckCircle2, Cpu, RotateCcw
 } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -23,6 +23,7 @@ interface ExtractedReport {
 type ItemStatus = 'idle' | 'uploading' | 'extracting' | 'analyzing' | 'done' | 'failed';
 
 interface UploadQueueItem {
+  id: string;
   file: File;
   status: ItemStatus;
   progress: number;
@@ -31,8 +32,8 @@ interface UploadQueueItem {
 }
 
 const ENGINE_LABELS: Record<string, string> = {
-  pdf_text_layer: 'Text layer read from the PDF',
-  easyocr: 'EasyOCR (on-device)',
+  pdf_text_layer: 'Digital PDF text layer',
+  easyocr: 'EasyOCR (on-device AI)',
   tesseract: 'Tesseract OCR',
   vision_model: 'Gemini Vision model',
 };
@@ -45,7 +46,7 @@ export const Upload: React.FC = () => {
 
   const maxBytes = (systemStatus?.limits.max_upload_size_mb ?? 10) * 1024 * 1024;
   const maxMb = systemStatus?.limits.max_upload_size_mb ?? 10;
-  const allowedExtensions = systemStatus?.limits.allowed_extensions ?? ['pdf', 'png', 'jpg', 'jpeg'];
+  const allowedExtensions = systemStatus?.limits.allowed_extensions ?? ['pdf', 'png', 'jpg', 'jpeg', 'webp'];
 
   const [queue, setQueue] = useState<UploadQueueItem[]>([]);
   const [language, setLanguage] = useState(user?.language || 'en');
@@ -57,148 +58,165 @@ export const Upload: React.FC = () => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(true);
   };
 
-  const handleDragLeave = () => setIsDragging(false);
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(false);
-    if (e.dataTransfer.files?.length) {
-      addFilesToQueue(Array.from(e.dataTransfer.files));
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFiles(Array.from(e.dataTransfer.files));
     }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      addFilesToQueue(Array.from(e.target.files));
+    if (e.target.files && e.target.files.length > 0) {
+      handleFiles(Array.from(e.target.files));
     }
+    // Clear value so the same file can be re-selected if desired
     e.target.value = '';
   };
 
-  const patchItem = (index: number, patch: Partial<UploadQueueItem>) => {
-    setQueue(prev => prev.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+  const patchQueueItem = (itemId: string, patch: Partial<UploadQueueItem>) => {
+    setQueue(prev => prev.map(item => item.id === itemId ? { ...item, ...patch } : item));
   };
 
-  const addFilesToQueue = (files: File[]) => {
+  const handleFiles = (incomingFiles: File[]) => {
     const accepted: UploadQueueItem[] = [];
-    const rejected: string[] = [];
+    const rejected: UploadQueueItem[] = [];
 
-    for (const file of files) {
+    for (const file of incomingFiles) {
+      const uniqueId = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
       const ext = file.name.includes('.') ? file.name.split('.').pop()!.toLowerCase() : '';
-      if (!allowedExtensions.includes(ext)) {
-        rejected.push(`'${file.name}' is not a supported file type. Allowed: ${allowedExtensions.join(', ').toUpperCase()}.`);
-        continue;
-      }
-      if (file.size === 0) {
-        rejected.push(`'${file.name}' is empty.`);
-        continue;
-      }
-      if (file.size > maxBytes) {
-        rejected.push(`'${file.name}' is ${(file.size / 1024 / 1024).toFixed(1)} MB, which exceeds the ${maxMb} MB limit.`);
-        continue;
-      }
-      accepted.push({ file, status: 'idle', progress: 0 });
-    }
 
-    if (rejected.length) {
-      setQueue(prev => [
-        ...prev,
-        ...rejected.map(message => ({
-          file: { name: message, size: 0 } as File,
-          status: 'failed' as ItemStatus,
+      if (!allowedExtensions.includes(ext)) {
+        rejected.push({
+          id: uniqueId,
+          file,
+          status: 'failed',
           progress: 100,
-          error: message,
-        })),
-        ...accepted,
-      ]);
-    } else {
-      setQueue(prev => {
-        const nextQueue = [...prev, ...accepted];
-        // Automatically start upload for the newly added accepted files
-        setTimeout(() => {
-          processPendingQueue(nextQueue);
-        }, 100);
-        return nextQueue;
+          error: `'${file.name}' is not supported. Allowed formats: ${allowedExtensions.map(e => e.toUpperCase()).join(', ')}.`,
+        });
+        continue;
+      }
+
+      if (file.size === 0) {
+        rejected.push({
+          id: uniqueId,
+          file,
+          status: 'failed',
+          progress: 100,
+          error: `'${file.name}' is empty (0 bytes).`,
+        });
+        continue;
+      }
+
+      if (file.size > maxBytes) {
+        rejected.push({
+          id: uniqueId,
+          file,
+          status: 'failed',
+          progress: 100,
+          error: `'${file.name}' exceeds the ${maxMb} MB upload limit (${(file.size / 1024 / 1024).toFixed(1)} MB).`,
+        });
+        continue;
+      }
+
+      accepted.push({
+        id: uniqueId,
+        file,
+        status: 'idle',
+        progress: 0,
       });
     }
+
+    const allNew = [...rejected, ...accepted];
+    setQueue(prev => [...prev, ...allNew]);
+
+    if (accepted.length > 0) {
+      startUploadBatch(accepted);
+    }
   };
 
-  const removeFromQueue = (index: number) => {
-    setQueue(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const processPendingQueue = async (currentQueue: UploadQueueItem[]) => {
-    if (busy) return;
-    const pendingIndices = currentQueue
-      .map((item, idx) => ({ item, idx }))
-      .filter(({ item }) => item.status === 'idle');
-
-    if (pendingIndices.length === 0) return;
-
+  const startUploadBatch = async (items: UploadQueueItem[]) => {
     setBusy(true);
 
-    for (const { item, idx } of pendingIndices) {
+    for (const item of items) {
+      patchQueueItem(item.id, { status: 'uploading', progress: 15, error: undefined });
+
       const formData = new FormData();
       formData.append('files', item.file);
       formData.append('language', language);
-
-      patchItem(idx, { status: 'uploading', progress: 20, error: undefined });
 
       try {
         const res = await api.post('/reports/upload', formData, {
           onUploadProgress: (event) => {
             if (!event.total) return;
             const pct = Math.min(70, Math.round((event.loaded / event.total) * 70));
-            patchItem(idx, { progress: Math.max(20, pct) });
+            patchQueueItem(item.id, { progress: Math.max(15, pct) });
           },
         });
 
-        patchItem(idx, { status: 'extracting', progress: 85 });
+        patchQueueItem(item.id, { status: 'extracting', progress: 85 });
 
         const payload = res.data as { reports: ExtractedReport[]; errors: { filename: string; detail: string }[] };
-        const uploaded = payload.reports?.[0];
+        const uploadedReport = payload.reports?.[0];
         const perFileError = payload.errors?.find(e => e.filename === item.file.name);
 
-        if (!uploaded) {
-          patchItem(idx, {
+        if (!uploadedReport) {
+          patchQueueItem(item.id, {
             status: 'failed',
             progress: 100,
-            error: perFileError?.detail || 'The server could not store this file.',
+            error: perFileError?.detail || 'The server could not store this file. Please try again.',
           });
           continue;
         }
 
-        // Check if auto-analyze is enabled and text was extracted
-        if (autoAnalyze && uploaded.extracted_text && uploaded.extracted_text.trim().length > 0) {
-          patchItem(idx, { status: 'analyzing', progress: 92, report: uploaded });
+        const hasText = uploadedReport.extracted_text && uploadedReport.extracted_text.trim().length > 0;
+
+        // Auto-analyze flow
+        if (autoAnalyze && hasText) {
+          patchQueueItem(item.id, { status: 'analyzing', progress: 92, report: uploadedReport });
           try {
-            await api.post(`/reports/${uploaded.id}/analyze`, { language });
-            patchItem(idx, {
+            await api.post(`/reports/${uploadedReport.id}/analyze`, { language });
+            patchQueueItem(item.id, {
               status: 'done',
               progress: 100,
-              report: { ...uploaded, analysis_status: 'analyzed' },
+              report: { ...uploadedReport, analysis_status: 'analyzed' },
             });
             await refreshProfile();
-            // If single file uploaded with auto-analyze, navigate directly to analysis
-            if (pendingIndices.length === 1) {
-              navigate(`/analysis/${uploaded.id}`);
+
+            // If single file uploaded, navigate directly to analysis page
+            if (items.length === 1) {
+              navigate(`/analysis/${uploadedReport.id}`);
               return;
             }
-          } catch (analyzeErr) {
-            // Keep uploaded report available even if LLM analysis fails
-            patchItem(idx, { status: 'done', progress: 100, report: uploaded });
+          } catch {
+            patchQueueItem(item.id, { status: 'done', progress: 100, report: uploadedReport });
           }
         } else {
-          patchItem(idx, { status: 'done', progress: 100, report: uploaded });
+          patchQueueItem(item.id, { status: 'done', progress: 100, report: uploadedReport });
+
+          // If single file and no text was extracted, take user to the report to review/paste
+          if (items.length === 1 && !hasText) {
+            navigate(`/analysis/${uploadedReport.id}`);
+            return;
+          }
         }
       } catch (err: any) {
         const detail = err?.response?.data?.detail;
-        patchItem(idx, {
+        patchQueueItem(item.id, {
           status: 'failed',
           progress: 100,
-          error: typeof detail === 'string' ? detail : detail?.message || 'Upload failed. Check your connection and try again.',
+          error: typeof detail === 'string' ? detail : detail?.message || 'Upload failed. Check your file format or connection.',
         });
       }
     }
@@ -207,46 +225,62 @@ export const Upload: React.FC = () => {
     await refreshProfile();
   };
 
-  const handleManualAnalyze = async (index: number, reportId: string) => {
-    patchItem(index, { status: 'analyzing', progress: 90 });
+  const handleManualAnalyze = async (item: UploadQueueItem) => {
+    if (!item.report) return;
+    patchQueueItem(item.id, { status: 'analyzing', progress: 90 });
     try {
-      await api.post(`/reports/${reportId}/analyze`, { language });
-      patchItem(index, { status: 'done', progress: 100 });
+      await api.post(`/reports/${item.report.id}/analyze`, { language });
+      patchQueueItem(item.id, { status: 'done', progress: 100, report: { ...item.report, analysis_status: 'analyzed' } });
       await refreshProfile();
-      navigate(`/analysis/${reportId}`);
+      navigate(`/analysis/${item.report.id}`);
     } catch (err: any) {
       const detail = err?.response?.data?.detail;
-      patchItem(index, {
+      patchQueueItem(item.id, {
         status: 'done',
-        error: typeof detail === 'string' ? detail : 'Analysis failed. Check your connection or edit text first.',
+        error: typeof detail === 'string' ? detail : 'Analysis failed. Try reviewing the text first.',
       });
     }
   };
 
-  const statusText = (item: UploadQueueItem): string => {
+  const retryItem = (item: UploadQueueItem) => {
+    startUploadBatch([item]);
+  };
+
+  const removeFromQueue = (itemId: string) => {
+    setQueue(prev => prev.filter(i => i.id !== itemId));
+  };
+
+  const statusBadge = (item: UploadQueueItem) => {
     switch (item.status) {
-      case 'idle': return 'Queued';
-      case 'uploading': return 'Uploading…';
-      case 'extracting': return 'Extracting text (OCR)…';
-      case 'analyzing': return 'Analyzing with Gemini AI…';
+      case 'idle':
+        return <span className="text-xs font-semibold text-slate-500">Queued</span>;
+      case 'uploading':
+        return <span className="text-xs font-semibold text-primary-500 flex items-center gap-1"><Loader2 className="h-3 w-3 animate-spin" /> Uploading…</span>;
+      case 'extracting':
+        return <span className="text-xs font-semibold text-teal-500 flex items-center gap-1"><Loader2 className="h-3 w-3 animate-spin" /> Extracting OCR…</span>;
+      case 'analyzing':
+        return <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 flex items-center gap-1"><Sparkles className="h-3 w-3 animate-spin" /> Analyzing with AI…</span>;
       case 'done':
-        if (item.report?.analysis_status === 'analyzed') return 'Analysis complete';
-        if (item.report?.analysis_status === 'extraction_failed') return 'Needs manual text';
-        return 'Text extracted';
-      case 'failed': return 'Failed';
+        if (item.report?.analysis_status === 'analyzed') {
+          return <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">Analysis Complete</span>;
+        }
+        if (!item.report?.extracted_text?.trim()) {
+          return <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">Needs Text Review</span>;
+        }
+        return <span className="text-xs font-semibold text-emerald-500">Text Extracted</span>;
+      case 'failed':
+        return <span className="text-xs font-bold text-red-500">Failed</span>;
     }
   };
 
   const barColor = (s: ItemStatus) => {
     if (s === 'done') return 'bg-emerald-500';
     if (s === 'failed') return 'bg-red-500';
-    if (s === 'analyzing') return 'bg-gradient-to-r from-primary-500 to-teal-400 animate-pulse';
+    if (s === 'analyzing') return 'bg-gradient-to-r from-purple-500 to-primary-500 animate-pulse';
     if (s === 'extracting') return 'bg-teal-500 animate-pulse';
     return 'bg-primary-500';
   };
 
-  const hasPending = queue.some(item => item.status === 'idle');
-  const ocrUnavailable = systemStatus ? !systemStatus.ocr.any_engine_available : false;
   const llmUnavailable = systemStatus ? !systemStatus.llm.configured : false;
 
   return (
@@ -257,8 +291,8 @@ export const Upload: React.FC = () => {
           {t('uploadReport')}
         </h1>
         <p className="mt-1.5 text-sm text-slate-400">
-          Upload medical reports (CBC, Lipid Panel, Blood Tests, Thyroid, Imaging). MediSense AI extracts
-          document contents and produces comprehensive biomarker interpretations.
+          Upload medical reports (Blood Work, CBC, Lipid Profile, Thyroid, Imaging). MediSense AI extracts
+          test results and computes personalized health scores and risk insights.
         </p>
       </div>
 
@@ -275,22 +309,22 @@ export const Upload: React.FC = () => {
           </div>
           <button
             onClick={() => setGeminiModalOpen(true)}
-            className="shrink-0 flex items-center gap-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-transform active:scale-95"
+            className="shrink-0 flex items-center gap-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition-transform active:scale-95 cursor-pointer"
           >
             <Sparkles className="h-3.5 w-3.5" /> Configure Gemini Key
           </button>
         </div>
       )}
 
-      {ocrUnavailable && (
-        <div className="rounded-2xl border border-orange-200 bg-orange-50 p-4 text-xs text-orange-800 dark:border-orange-950/30 dark:bg-orange-950/10 dark:text-orange-300">
-          <p className="font-bold">No OCR engine is installed on the server.</p>
-          <p className="mt-1">
-            Text-based PDFs can still be read. Scanned documents and photos will upload with no
-            extracted text, and you will be asked to paste the report contents yourself.
-          </p>
-        </div>
-      )}
+      {/* Hidden native input */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileSelect}
+        multiple
+        accept=".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"
+        className="hidden"
+      />
 
       <div className="rounded-3xl border border-slate-100 bg-white p-6 dark:border-slate-800 dark:bg-navy-800 shadow-glass space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -324,6 +358,7 @@ export const Upload: React.FC = () => {
           </label>
         </div>
 
+        {/* Dropzone container */}
         <div
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -334,39 +369,55 @@ export const Upload: React.FC = () => {
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
           className={`flex flex-col items-center justify-center rounded-3xl border-2 border-dashed p-10 text-center cursor-pointer transition-all duration-200 ${
             isDragging
-              ? 'border-primary-500 bg-primary-50/30 dark:bg-primary-950/10'
+              ? 'border-primary-500 bg-primary-50/40 dark:bg-primary-950/20 scale-[0.99]'
               : 'border-slate-200 hover:border-primary-400 hover:bg-slate-50/50 dark:border-slate-700 dark:hover:border-slate-600 dark:hover:bg-slate-800/10'
           }`}
         >
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileSelect}
-            multiple
-            accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg"
-            className="hidden"
-          />
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-primary-500 dark:bg-primary-950/20">
-            <UploadCloud className="h-7 w-7" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-primary-500 dark:bg-primary-950/20">
+            <UploadCloud className="h-8 w-8" />
           </div>
-          <h3 className="mt-4 font-bold text-slate-700 dark:text-slate-200">
-            Drag &amp; drop reports here, or <span className="text-primary-500 hover:underline">browse</span>
+
+          <h3 className="mt-4 font-bold text-slate-700 dark:text-slate-200 text-base">
+            Drag &amp; drop reports here, or choose from device
           </h3>
           <p className="mt-1.5 text-xs text-slate-400">
-            {allowedExtensions.map(e => e.toUpperCase()).join(', ')} up to {maxMb} MB each
+            Supports {allowedExtensions.map(e => e.toUpperCase()).join(', ')} up to {maxMb} MB each
           </p>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              fileInputRef.current?.click();
+            }}
+            className="mt-5 flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary-500 to-teal-500 px-6 py-2.5 text-xs font-bold text-white shadow-md shadow-primary-500/15 hover:brightness-105 active:scale-95 transition-all cursor-pointer"
+          >
+            Browse Files
+          </button>
         </div>
 
+        {/* Uploaded Queue */}
         {queue.length > 0 && (
           <div className="space-y-4 pt-2">
-            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">
-              Report Files ({queue.length})
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                Reports ({queue.length})
+              </h3>
+              {queue.length > 1 && (
+                <button
+                  onClick={() => setQueue([])}
+                  className="text-xs text-slate-400 hover:text-red-500 font-semibold"
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
+
             <div className="space-y-3">
-              {queue.map((item, idx) => (
+              {queue.map((item) => (
                 <div
-                  key={`${item.file.name}-${idx}`}
-                  className="rounded-2xl border border-slate-100 p-4 dark:border-slate-700/50 dark:bg-navy-800 bg-slate-50/50 shadow-sm"
+                  key={item.id}
+                  className="rounded-2xl border border-slate-100 p-4 dark:border-slate-700/50 dark:bg-navy-800 bg-slate-50/50 shadow-sm transition-all"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3 truncate">
@@ -384,23 +435,34 @@ export const Upload: React.FC = () => {
                           {item.report?.filename || item.file.name}
                         </p>
                         <p className="text-[10px] text-slate-400">
-                          {item.file.size ? `${(item.file.size / 1024 / 1024).toFixed(2)} MB` : 'Rejected before upload'}
+                          {item.file.size ? `${(item.file.size / 1024 / 1024).toFixed(2)} MB` : 'Invalid file'}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3 shrink-0">
-                      <span className={`text-xs font-semibold ${
-                        item.status === 'done' ? 'text-emerald-500' :
-                        item.status === 'analyzing' ? 'text-primary-500 font-bold' :
-                        item.status === 'failed' ? 'text-red-500' : 'text-slate-500'
-                      }`}>
-                        {statusText(item)}
-                      </span>
+                      {statusBadge(item)}
+
+                      {item.status === 'failed' && (
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => retryItem(item)}
+                            className="flex items-center gap-1 text-xs font-bold text-primary-600 hover:underline"
+                          >
+                            <RotateCcw className="h-3 w-3" /> Retry
+                          </button>
+                          <button
+                            onClick={() => removeFromQueue(item.id)}
+                            className="text-xs font-bold text-slate-400 hover:text-red-500"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
 
                       {item.status === 'idle' && (
                         <button
-                          onClick={() => removeFromQueue(idx)}
+                          onClick={() => removeFromQueue(item.id)}
                           className="text-xs font-bold text-slate-400 hover:text-red-500"
                         >
                           Remove
@@ -412,21 +474,21 @@ export const Upload: React.FC = () => {
                           {item.report.analysis_status === 'analyzed' ? (
                             <button
                               onClick={() => navigate(`/analysis/${item.report!.id}`)}
-                              className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-600 active:scale-95 transition-all"
+                              className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-600 active:scale-95 transition-all cursor-pointer"
                             >
                               View Analysis <ArrowRight className="h-3 w-3" />
                             </button>
                           ) : (
                             <>
                               <button
-                                onClick={() => handleManualAnalyze(idx, item.report!.id)}
-                                className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-primary-500 to-teal-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:brightness-105 active:scale-95 transition-all"
+                                onClick={() => handleManualAnalyze(item)}
+                                className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-primary-500 to-teal-500 px-3 py-1.5 text-xs font-bold text-white shadow-sm hover:brightness-105 active:scale-95 transition-all cursor-pointer"
                               >
                                 <Sparkles className="h-3 w-3" /> Analyze with AI
                               </button>
                               <button
                                 onClick={() => navigate(`/analysis/${item.report!.id}`)}
-                                className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:underline"
+                                className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:underline cursor-pointer"
                               >
                                 <ClipboardEdit className="h-3.5 w-3.5" /> Review text
                               </button>
@@ -454,7 +516,7 @@ export const Upload: React.FC = () => {
                       )}
 
                       {item.report && (
-                        <div className="mt-3 space-y-2 text-[11px] text-slate-500 dark:text-slate-400">
+                        <div className="mt-3 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                           <p className="flex items-center gap-1.5">
                             <ScanText className="h-3.5 w-3.5 text-slate-400" />
                             {item.report.extraction_engine
@@ -471,9 +533,9 @@ export const Upload: React.FC = () => {
                               <span>{w}</span>
                             </p>
                           ))}
-                          {item.report.analysis_status === 'extraction_failed' && (
+                          {!item.report.extracted_text?.trim() && (
                             <p className="font-semibold text-amber-700 dark:text-amber-400">
-                              You can still open this report and paste the text manually before analysing it.
+                              No readable text found in this scan. You can open this report and paste the values manually before analyzing.
                             </p>
                           )}
                         </div>
@@ -483,31 +545,6 @@ export const Upload: React.FC = () => {
                 </div>
               ))}
             </div>
-
-            {hasPending && (
-              <div className="flex items-center justify-between gap-3 pt-3">
-                <p className="text-[11px] text-slate-400">
-                  Click below to start upload and analysis for pending reports.
-                </p>
-                <button
-                  onClick={() => processPendingQueue(queue)}
-                  disabled={busy}
-                  className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary-500 to-teal-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/10 transition-transform active:scale-95 disabled:scale-100 disabled:opacity-50 cursor-pointer"
-                >
-                  {busy ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Processing…
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="h-4 w-4" />
-                      Upload &amp; Analyze Reports
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
           </div>
         )}
       </div>

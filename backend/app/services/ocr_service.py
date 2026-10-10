@@ -46,7 +46,7 @@ _easyocr_reader = None
 _easyocr_failed = False
 TESSERACT_BINARY_OK: Optional[bool] = None
 
-IMAGE_EXTENSIONS = {"png", "jpg", "jpeg"}
+IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
 
 def ocr_engine_status() -> Dict[str, Any]:

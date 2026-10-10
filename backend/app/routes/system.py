@@ -75,7 +75,7 @@ async def system_status():
         "storage": {"mode": "embedded_json" if db_state.is_embedded else "mongodb"},
         "limits": {
             "max_upload_size_mb": settings.MAX_UPLOAD_SIZE_MB,
-            "allowed_extensions": sorted({"pdf", "png", "jpg", "jpeg"}),
+            "allowed_extensions": sorted({"pdf", "png", "jpg", "jpeg", "webp"}),
         },
         "dev_otp_exposed": settings.EXPOSE_DEV_OTP,
     }

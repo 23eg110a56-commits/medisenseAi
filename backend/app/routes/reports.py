@@ -19,12 +19,15 @@ from app.services.export_service import generate_report_pdf, generate_report_doc
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg"}
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "webp"}
 ALLOWED_CONTENT_TYPES = {
     "application/pdf",
     "image/png",
     "image/jpeg",
     "image/jpg",
+    "image/webp",
+    "image/pjpeg",
+    "image/x-png",
     "application/octet-stream",  # browsers sometimes send this for PDFs
 }
 MAX_FILE_BYTES = settings.MAX_UPLOAD_SIZE_MB * 1024 * 1024
