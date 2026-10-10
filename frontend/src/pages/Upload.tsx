@@ -46,7 +46,7 @@ export const Upload: React.FC = () => {
 
   const maxBytes = (systemStatus?.limits.max_upload_size_mb ?? 10) * 1024 * 1024;
   const maxMb = systemStatus?.limits.max_upload_size_mb ?? 10;
-  const allowedExtensions = systemStatus?.limits.allowed_extensions ?? ['pdf', 'png', 'jpg', 'jpeg', 'webp'];
+  const allowedExtensions = systemStatus?.limits.allowed_extensions ?? ['pdf', 'png', 'jpg', 'jpeg', 'webp', 'txt'];
 
   const [queue, setQueue] = useState<UploadQueueItem[]>([]);
   const [language, setLanguage] = useState(user?.language || 'en');
@@ -322,7 +322,7 @@ export const Upload: React.FC = () => {
         ref={fileInputRef}
         onChange={handleFileSelect}
         multiple
-        accept=".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"
+        accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.text,.csv,application/pdf,image/png,image/jpeg,image/webp,text/plain"
         className="hidden"
       />
 

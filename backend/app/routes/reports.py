@@ -333,6 +333,106 @@ async def analyze_report(
     return serialize_doc(updated)
 
 
+class CreateTextReportRequest(BaseModel):
+    title: Optional[str] = "Clinical Text Report"
+    extracted_text: str = Field(..., min_length=5, description="Raw text of the medical report or clinical notes")
+    language: Optional[str] = "en"
+    report_type: Optional[str] = "Text Laboratory Report"
+
+
+@router.post("/text-report")
+async def create_and_analyze_text_report(
+    payload: CreateTextReportRequest,
+    current_user=Depends(get_current_user),
+    db=Depends(get_db),
+):
+    """Directly submit a plain text medical report, run clinical analysis,
+    extract biomarkers, and save it to the user's dashboard records."""
+    if db is None:
+        raise HTTPException(status_code=500, detail="Database not connected")
+
+    text = payload.extracted_text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="Report text cannot be empty.")
+
+    title = (payload.title or "Clinical Text Report").strip()
+    if not title.lower().endswith(".txt"):
+        filename = f"{title}.txt"
+    else:
+        filename = title
+
+    language = payload.language or "en"
+
+    # Run clinical engine / Gemini analysis
+    try:
+        analysis = await gemini_client.analyze_medical_report(text, language=language)
+    except Exception as exc:
+        logger.exception("Text report analysis error: %s", exc)
+        raise HTTPException(status_code=502, detail=f"Analysis failed: {exc}")
+
+    report_doc = {
+        "user_id": current_user["id"],
+        "patient_name": current_user.get("name", ""),
+        "filename": filename,
+        "gridfs_id": None,
+        "file_size": len(text.encode("utf-8")),
+        "extracted_text": text,
+        "extraction_engine": "direct_text",
+        "page_count": 1,
+        "extraction_warnings": [],
+        "analysis_status": "analyzed",
+        "analysis_mode": analysis.get("analysis_mode", "rule_based"),
+        "llm_notice": analysis.get("llm_notice"),
+        "report_type": analysis.get("report_type") or payload.report_type or "Text Laboratory Report",
+        "summary": analysis.get("summary", ""),
+        "biomarkers": analysis.get("biomarkers", []),
+        "health_concerns": analysis.get("health_concerns", {}),
+        "recommendations": analysis.get("recommendations", {}),
+        "health_score": analysis.get("health_score"),
+        "health_score_basis": analysis.get("health_score_basis"),
+        "warnings": analysis.get("warnings", []),
+        "unparsed_lines": analysis.get("unparsed_lines", []),
+        "requires_manual_review": analysis.get("requires_manual_review", False),
+        "grounding": analysis.get("grounding"),
+        "language": language,
+        "created_at": datetime.now(timezone.utc),
+        "analyzed_at": datetime.now(timezone.utc),
+    }
+
+    result = await db.reports.insert_one(report_doc)
+    report_doc["id"] = str(result.inserted_id)
+    report_doc.pop("_id", None)
+
+    await db.notifications.insert_one({
+        "user_id": current_user["id"],
+        "title": "Text report analyzed",
+        "message": f"Clinical analysis for '{filename}' is complete.",
+        "type": "success",
+        "read": False,
+        "created_at": datetime.now(timezone.utc),
+    })
+
+    return report_doc
+
+
+@router.post("/analyze-raw-text")
+async def analyze_raw_text(
+    payload: CreateTextReportRequest,
+    current_user=Depends(get_current_user),
+):
+    """Analyze raw medical text in real-time without persisting, returning
+    extracted biomarkers, executive brief, organ synthesis, and clinical calculations."""
+    text = payload.extracted_text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="Report text cannot be empty.")
+    try:
+        analysis = await gemini_client.analyze_medical_report(text, language=payload.language or "en")
+        return analysis
+    except Exception as exc:
+        logger.exception("Raw text analysis error: %s", exc)
+        raise HTTPException(status_code=502, detail=f"Analysis failed: {exc}")
+
+
 @router.get("/all")
 async def get_user_reports(current_user=Depends(get_current_user), db=Depends(get_db)):
     if db is None:

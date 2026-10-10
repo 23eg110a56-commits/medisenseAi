@@ -241,6 +241,14 @@ async def extract_text_pipeline(
                     "OCR ran but found no readable text. Try a higher-resolution scan, or correct "
                     "the extracted text manually."
                 )
+    elif ext in ("txt", "text", "csv", "log"):
+        try:
+            text = file_bytes.decode("utf-8", errors="replace").strip()
+            engine = "direct_text"
+            page_count = 1
+        except Exception as exc:
+            logger.error("Text file reading failed: %s", exc)
+            warnings.append(f"Text file reading failed: {exc}")
     else:
         warnings.append(f"Unsupported file type '.{ext}'.")
 

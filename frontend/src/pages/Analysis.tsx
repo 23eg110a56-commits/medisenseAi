@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   FileText, Download, Share2, Printer, MessageSquareCode,
   Activity, AlertTriangle, CheckCircle, Info,
   Calendar, ShieldAlert, ArrowLeft, Loader2, Copy, Check, Brain,
-  ClipboardEdit, ScanText, HelpCircle, Save
+  ClipboardEdit, ScanText, HelpCircle, Save, Calculator, Droplets,
+  HeartPulse, Stethoscope, CheckCircle2, Zap
 } from 'lucide-react';
 import api from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useSystemStatus } from '../context/SystemStatusContext';
+import {
+  parseBiomarkersFromText,
+  computeComprehensiveClinicalOperations,
+  ClinicalOperationsResult,
+} from '../utils/healthMetrics';
 
 interface Biomarker {
   name: string;
@@ -103,6 +109,17 @@ export const Analysis: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const clinicalOps = useMemo<ClinicalOperationsResult | null>(() => {
+    if (!report) return null;
+    const textSources = [
+      report.extracted_text || '',
+      ...(report.biomarkers || []).map((b) => `${b.name}: ${b.value} ${b.unit || ''}`),
+    ].join('\n');
+    if (!textSources.trim()) return null;
+    const parsed = parseBiomarkersFromText(textSources);
+    return computeComprehensiveClinicalOperations(parsed, 40);
+  }, [report]);
 
   const errorMessage = (err: any, fallback: string): string => {
     const detail = err?.response?.data?.detail;
@@ -530,6 +547,124 @@ export const Analysis: React.FC = () => {
                   <li key={i} className="text-xs leading-relaxed text-red-700/90 dark:text-red-300/90">• {w}</li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* Executive Patient Health Synthesis (Clear & Brief Summary) */}
+          {clinicalOps && (
+            <div className="rounded-3xl border border-teal-200/80 bg-gradient-to-br from-teal-50/70 via-emerald-50/40 to-white p-6 dark:border-teal-800/40 dark:bg-navy-900/60 shadow-glass space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-600 text-white shadow-sm font-bold">
+                    ✚
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                      Clear &amp; Brief Clinical Summary
+                    </span>
+                    <h3 className="text-base font-extrabold text-slate-800 dark:text-white">
+                      Executive Health Synthesis
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className={`rounded-full px-3 py-1 text-xs font-extrabold border ${
+                    clinicalOps.executiveSummary.status === 'Optimal'
+                      ? 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300'
+                      : clinicalOps.executiveSummary.status === 'Mild Attention'
+                      ? 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300'
+                      : 'bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300'
+                  }`}>
+                    ● {clinicalOps.executiveSummary.badge}
+                  </span>
+                  <span className="rounded-full bg-white dark:bg-navy-800 px-3 py-1 text-xs font-bold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
+                    Health Score: {clinicalOps.calculations.healthScore}/100
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-navy-800/80 p-4 rounded-2xl border border-teal-100/60 dark:border-teal-900/40">
+                {clinicalOps.executiveSummary.briefSummary}
+              </p>
+
+              <div className="grid gap-3 sm:grid-cols-2 pt-1">
+                <div className="rounded-2xl bg-emerald-50/70 p-3.5 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
+                  <span className="text-xs font-extrabold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5" /> Optimal Biomarkers
+                  </span>
+                  <ul className="mt-2 space-y-1 text-xs text-slate-700 dark:text-slate-300">
+                    {clinicalOps.executiveSummary.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="text-emerald-500 font-bold">•</span> {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl bg-amber-50/70 p-3.5 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30">
+                  <span className="text-xs font-extrabold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                    <AlertTriangle className="h-3.5 w-3.5" /> Areas For Attention
+                  </span>
+                  {clinicalOps.executiveSummary.attentionItems.length > 0 ? (
+                    <ul className="mt-2 space-y-1 text-xs text-slate-700 dark:text-slate-300">
+                      {clinicalOps.executiveSummary.attentionItems.map((a, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-amber-500 font-bold">•</span> {a}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                      No clinical red flags observed in this report.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-1 text-xs text-slate-600 dark:text-slate-300 font-medium">
+                <span className="font-bold text-teal-700 dark:text-teal-400">Recommended Action:</span>
+                <span>{clinicalOps.executiveSummary.primaryAction}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Multi-Method Clinical Calculations Grid */}
+          {clinicalOps && (
+            <div className="rounded-3xl border border-slate-100 bg-white p-6 dark:border-slate-800 dark:bg-navy-800 shadow-glass space-y-4">
+              <h3 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 border-b border-slate-100 pb-3 dark:border-slate-700">
+                <Calculator className="h-5 w-5 text-primary-500" />
+                Multi-Method Clinical Calculations &amp; Risk Indices
+              </h3>
+
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-2xl bg-slate-50/80 p-3.5 dark:bg-navy-900/40 border border-slate-100 dark:border-slate-700/60">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                    <Droplets className="h-3.5 w-3.5 text-rose-500" /> Glycemic Control &amp; eAG
+                  </span>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5">
+                    {clinicalOps.calculations.eag ? `Estimated Average Glucose: ~${clinicalOps.calculations.eag} mg/dL` : 'Evaluated via ADA targets'}
+                  </p>
+                </div>
+
+                <div className="rounded-2xl bg-slate-50/80 p-3.5 dark:bg-navy-900/40 border border-slate-100 dark:border-slate-700/60">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                    <HeartPulse className="h-3.5 w-3.5 text-teal-500" /> Atherogenic Index (AIP)
+                  </span>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5">
+                    {clinicalOps.calculations.aip !== null ? `AIP Score: ${clinicalOps.calculations.aip} (${clinicalOps.calculations.aipCategory})` : 'LDL/HDL risk evaluation'}
+                  </p>
+                </div>
+
+                <div className="rounded-2xl bg-slate-50/80 p-3.5 dark:bg-navy-900/40 border border-slate-100 dark:border-slate-700/60">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                    <Stethoscope className="h-3.5 w-3.5 text-amber-500" /> Renal eGFR Filtration
+                  </span>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5">
+                    {clinicalOps.calculations.eGfr ? `Est. GFR: ~${clinicalOps.calculations.eGfr} mL/min (${clinicalOps.calculations.eGfrStage})` : 'Creatinine filtration baseline'}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
