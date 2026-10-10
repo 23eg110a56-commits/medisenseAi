@@ -13,6 +13,7 @@ from app.routes.chat import router as chat_router
 from app.routes.admin import router as admin_router
 from app.routes.notifications import router as notifications_router
 from app.routes.system import router as system_router
+from app.routes.vitals import router as vitals_router
 from app.services.rag_service import rag_engine
 
 logging.basicConfig(
@@ -76,6 +77,7 @@ app.include_router(chat_router, prefix=f"{settings.API_V1_STR}/chat", tags=["Cha
 app.include_router(notifications_router, prefix=f"{settings.API_V1_STR}/notifications", tags=["Notifications"])
 app.include_router(admin_router, prefix=f"{settings.API_V1_STR}/admin", tags=["Admin Module"])
 app.include_router(system_router, prefix=f"{settings.API_V1_STR}/system", tags=["System Status"])
+app.include_router(vitals_router, prefix=f"{settings.API_V1_STR}/vitals", tags=["Health Vitals"])
 
 
 @app.get("/")
