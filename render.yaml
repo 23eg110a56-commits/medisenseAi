@@ -1,0 +1,32 @@
+services:
+  # 1. Backend Web Service (FastAPI + Python)
+  - type: web
+    name: medisense-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MONGODB_URL
+        sync: false
+      - key: DATABASE_NAME
+        value: medisense_ai
+      - key: SECRET_KEY
+        generateValue: true
+      - key: EXPOSE_DEV_OTP
+        value: "true"
+
+  # 2. Frontend Static Site (React + Vite)
+  - type: web
+    name: medisense-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false
