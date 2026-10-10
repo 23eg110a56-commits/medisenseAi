@@ -1,19 +1,33 @@
 import asyncio
 import json
 import os
+import sys
+
+# Ensure backend root is on sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.auth.jwt import get_password_hash
+from app.config import settings
 
 async def sync_data():
-    client = AsyncIOMotorClient("mongodb://localhost:27017")
-    db = client["medisense_ai"]
+    mongo_url = settings.MONGODB_URL or "mongodb://localhost:27017"
+    db_name = settings.DATABASE_NAME or "medisense_ai"
+    print(f"Connecting to MongoDB at: {mongo_url} (db: {db_name})...")
+    
+    client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+    db = client[db_name]
 
     # Check local db backup
-    backup_file = os.path.join(os.path.dirname(__file__), "data", "medisense_local_db.backup-2026-10-09.json")
+    backup_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "medisense_local_db.backup-2026-10-09.json"))
     if not os.path.exists(backup_file):
-        print("No backup file found at", backup_file)
+        backup_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "medisense_local_db.json"))
+    
+    if not os.path.exists(backup_file):
+        print("No seed database file found at", backup_file)
         return
 
+    print(f"Loading data from: {backup_file}")
     with open(backup_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
